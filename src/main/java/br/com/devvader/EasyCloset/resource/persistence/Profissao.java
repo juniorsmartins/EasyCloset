@@ -7,15 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "contatos")
+@Table(name = "profissoes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
-public final class Contato implements Serializable
-{
+public final class Profissao implements Serializable {
+
     // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;
 
@@ -24,8 +25,10 @@ public final class Contato implements Serializable
     @OneToOne()
     private Pessoa pessoa;
 
-    @Column(name = "celular", length = 25)
-    private String celular;
-    @Column(name = "email", length = 100)
-    private String email;
+    @Column(name = "cargo", length = 100, nullable = false)
+    private String cargo;
+    @Column(name = "nivel", nullable = false)
+    private String nivel;
+    @Column(name = "salario", scale = 2, nullable = false)
+    private BigDecimal salario;
 }

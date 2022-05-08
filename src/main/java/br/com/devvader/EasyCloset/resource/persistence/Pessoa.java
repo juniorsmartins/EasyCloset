@@ -25,6 +25,6 @@ public final class Pessoa implements Serializable {
     private String nome;
     @Column(name = "sobrenome", length = 40, nullable = false)
     private String sobrenome;
-    @Column(name = "cpf", unique = true, nullable = false)
+    @Column(name = "cpf", length = 14, unique = true, nullable = false)
     private String cpf;
 }

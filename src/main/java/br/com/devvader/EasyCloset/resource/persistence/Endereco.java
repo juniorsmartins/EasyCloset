@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -21,18 +20,22 @@ public final class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
-    @Column(name = "cep", nullable = false)
+    @Id
+    @OneToOne()
+    private Pessoa pessoa;
+
+    @Column(name = "cep", length = 9, nullable = false)
     private String cep;
-    @Column(name = "estado", nullable = false)
+    @Column(name = "estado", length = 50, nullable = false)
     private String estado;
-    @Column(name = "cidade", nullable = false)
+    @Column(name = "cidade", length = 50, nullable = false)
     private String cidade;
-    @Column(name = "bairro", nullable = false)
+    @Column(name = "bairro", length = 50, nullable = false)
     private String bairro;
-    @Column(name = "logradouro", nullable = false)
+    @Column(name = "logradouro", length = 50, nullable = false)
     private String logradouro;
     @Column(name = "numero")
     private int numero;
-    @Column(name = "complemento")
+    @Column(name = "complemento", length = 150)
     private String complemento;
 }
