@@ -20,8 +20,9 @@ public final class Contato implements Serializable
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contatoId;
+/*    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+    @Column(name = "pessoa_id")
+    private Long pessoaId;
 
     @Column(name = "celular", length = 25)
     private String celular;
@@ -29,5 +30,7 @@ public final class Contato implements Serializable
     private String email;
 
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 }

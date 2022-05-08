@@ -28,8 +28,10 @@ public final class Pessoa implements Serializable {
     @Column(name = "cpf", length = 14, unique = true, nullable = false)
     private String cpf;
 
-    @OneToOne(mappedBy = "pessoa")
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL})
+    @PrimaryKeyJoinColumn
     private Contato contato;
-    @OneToOne(mappedBy = "pessoa")
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL})
+    @PrimaryKeyJoinColumn
     private Endereco endereco;
 }

@@ -20,8 +20,9 @@ public final class Endereco implements Serializable {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long enderecoId;
+/*    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+    @Column(name = "pessoa_id")
+    private Long pessoaId;
 
     @Column(name = "cep", length = 9, nullable = false)
     private String cep;
@@ -39,5 +40,7 @@ public final class Endereco implements Serializable {
     private String complemento;
 
     @OneToOne
+    @MapsId
+    @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 }
