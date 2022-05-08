@@ -2,8 +2,8 @@ package br.com.devvader.EasyCloset.resource.persistence;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@EqualsAndHashCode
 public final class Endereco implements Serializable {
 
     // ---------- ATRIBUTOS DE CLASSE ---------- //
