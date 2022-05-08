@@ -14,10 +14,10 @@ import java.io.Serializable;
 @Data
 public class Pessoa implements Serializable {
 
-    // ---------- MÉTODOS DE CLASSE ---------- //
+    // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;
 
-    // ---------- MÉTODOS DE INSTÂNCIA ---------- //
+    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pessoaId;
     @Column(name = "nome", length = 25, nullable = false)

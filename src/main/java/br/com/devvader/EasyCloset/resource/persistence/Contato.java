@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @Data
 public final class Contato implements Serializable
 {
-    // ---------- MÉTODOS DE CLASSE ---------- //
+    // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;
 
-    // ---------- MÉTODOS DE INSTÂNCIA ---------- //
+    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     private String telefone;
     private String celular;
     private String email;
