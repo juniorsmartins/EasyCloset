@@ -3,7 +3,6 @@ package br.com.devvader.EasyCloset.resource.persistence;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -26,6 +25,4 @@ public final class Contato implements Serializable
     // ----- Auditoria
     private LocalDateTime dataHoraCriacao;
     private LocalDateTime dataHoraUltimaAtualizacao;
-    private boolean deletado;
-
 }
