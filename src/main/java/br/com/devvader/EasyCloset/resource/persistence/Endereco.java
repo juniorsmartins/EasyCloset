@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,8 +20,8 @@ public final class Endereco implements Serializable {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
-    @OneToOne()
-    private Pessoa pessoa;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long enderecoId;
 
     @Column(name = "cep", length = 9, nullable = false)
     private String cep;
@@ -38,4 +37,7 @@ public final class Endereco implements Serializable {
     private int numero;
     @Column(name = "complemento", length = 150)
     private String complemento;
+
+    @OneToOne
+    private Pessoa pessoa;
 }

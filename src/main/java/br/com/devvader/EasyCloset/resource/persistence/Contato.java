@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -21,11 +20,14 @@ public final class Contato implements Serializable
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
-    @OneToOne()
-    private Pessoa pessoa;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long contatoId;
 
     @Column(name = "celular", length = 25)
     private String celular;
     @Column(name = "email", length = 100)
     private String email;
+
+    @OneToOne
+    private Pessoa pessoa;
 }

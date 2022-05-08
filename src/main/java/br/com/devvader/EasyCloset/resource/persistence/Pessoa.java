@@ -27,4 +27,9 @@ public final class Pessoa implements Serializable {
     private String sobrenome;
     @Column(name = "cpf", length = 14, unique = true, nullable = false)
     private String cpf;
+
+    @OneToOne(mappedBy = "pessoa")
+    private Contato contato;
+    @OneToOne(mappedBy = "pessoa")
+    private Endereco endereco;
 }
