@@ -20,7 +20,6 @@ public final class Contato implements Serializable
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
-/*    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     @Column(name = "pessoa_id")
     private Long pessoaId;
 
