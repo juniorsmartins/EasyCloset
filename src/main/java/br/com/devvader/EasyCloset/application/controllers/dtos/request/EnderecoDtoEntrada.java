@@ -3,6 +3,8 @@ package br.com.devvader.EasyCloset.application.controllers.dtos.request;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @NoArgsConstructor
 @Data
 public final class EnderecoDtoEntrada {
