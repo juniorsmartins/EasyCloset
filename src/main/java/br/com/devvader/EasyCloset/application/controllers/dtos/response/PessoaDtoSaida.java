@@ -2,6 +2,7 @@ package br.com.devvader.EasyCloset.application.controllers.dtos.response;
 
 import br.com.devvader.EasyCloset.application.controllers.dtos.request.ContatoDtoEntrada;
 import br.com.devvader.EasyCloset.application.controllers.dtos.request.EnderecoDtoEntrada;
+import br.com.devvader.EasyCloset.resource.persistence.Pessoa;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,4 +18,14 @@ public final class PessoaDtoSaida {
 
     private ContatoDtoSaida contato;
     private EnderecoDtoSaida endereco;
+
+    // ---------- CONSTRUTORES ---------- //
+    public PessoaDtoSaida(Pessoa pessoa) {
+        setPessoaId(pessoa.getPessoaId());
+        setNome(pessoa.getNome());
+        setSobrenome(pessoa.getSobrenome());
+        setCpf(pessoa.getCpf());
+        setContato(new ContatoDtoSaida(pessoa.getContato()));
+        setEndereco(new EnderecoDtoSaida(pessoa.getEndereco()));
+    }
 }

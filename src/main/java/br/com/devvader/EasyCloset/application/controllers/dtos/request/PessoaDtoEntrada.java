@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @Data
-public final class PessoaDtoEntrada {
+public class PessoaDtoEntrada {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @NotBlank
