@@ -1,7 +1,5 @@
 package br.com.devvader.EasyCloset.application.controllers.dtos.response;
 
-import br.com.devvader.EasyCloset.application.controllers.dtos.request.ContatoDtoEntrada;
-import br.com.devvader.EasyCloset.application.controllers.dtos.request.EnderecoDtoEntrada;
 import br.com.devvader.EasyCloset.resource.persistence.Pessoa;
 import lombok.Data;
 import lombok.NoArgsConstructor;

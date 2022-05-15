@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @Data
@@ -19,7 +20,8 @@ public class PessoaDtoEntrada {
     @CPF
     private String cpf;
 
-    @NotBlank
+    @NotNull
     private ContatoDtoEntrada contato;
+    @NotNull
     private EnderecoDtoEntrada endereco;
 }

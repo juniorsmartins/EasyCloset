@@ -72,8 +72,8 @@ public final class PessoaService {
         private void cadastrar() {
             pessoaSalva = pessoaRepository.saveAndFlush(modelMapper.map(pessoaDtoEntrada, Pessoa.class));
 
-            cadastrarContato();
-            cadastrarEndereco();
+            /*cadastrarContato();
+            cadastrarEndereco();*/
         }
 
             private void cadastrarContato() {

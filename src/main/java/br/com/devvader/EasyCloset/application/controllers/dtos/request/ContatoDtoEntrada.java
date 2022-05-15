@@ -13,6 +13,7 @@ public final class ContatoDtoEntrada {
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @NotBlank
     private String celular;
+    @NotBlank
     @Email
     private String email;
 }
