@@ -29,10 +29,10 @@ public final class Pessoa implements Serializable {
     @Column(name = "cpf", length = 14, unique = true, nullable = false)
     private String cpf;
 
-    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true, optional = false)
     @PrimaryKeyJoinColumn
     private Contato contato;
-    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true, optional = false)
     @PrimaryKeyJoinColumn
     private Endereco endereco;
 }

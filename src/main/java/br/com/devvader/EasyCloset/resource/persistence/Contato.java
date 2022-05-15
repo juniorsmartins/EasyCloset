@@ -23,9 +23,9 @@ public final class Contato implements Serializable
     @Column(name = "pessoa_id")
     private Long pessoaId;
 
-    @Column(name = "celular", length = 25)
+    @Column(name = "celular", length = 25, nullable = false)
     private String celular;
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @OneToOne
