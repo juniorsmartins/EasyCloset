@@ -1,4 +1,4 @@
-package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.errors;
+package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes;
 
 public class ValidacaoException extends RuntimeException {
 

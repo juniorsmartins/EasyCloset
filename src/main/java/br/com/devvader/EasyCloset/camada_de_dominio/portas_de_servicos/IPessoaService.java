@@ -1,4 +1,4 @@
-package br.com.devvader.EasyCloset.camada_de_dominio.portas;
+package br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import org.springframework.http.ResponseEntity;

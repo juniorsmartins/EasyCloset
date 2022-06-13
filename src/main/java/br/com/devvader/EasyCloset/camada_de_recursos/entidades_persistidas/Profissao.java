@@ -1,4 +1,4 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.persistence;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

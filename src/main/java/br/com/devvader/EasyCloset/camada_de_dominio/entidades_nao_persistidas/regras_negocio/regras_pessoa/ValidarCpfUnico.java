@@ -1,8 +1,7 @@
-package br.com.devvader.EasyCloset.camada_de_dominio.entities.regras_de_negocio.regras_pessoa;
+package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.regras_pessoa;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
-import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.errors.ValidacaoException;
-import br.com.devvader.EasyCloset.camada_de_dominio.entities.regras_de_negocio.regras_pessoa.PessoaValidacoes;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.ValidacaoException;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.persistence.Endereco;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
