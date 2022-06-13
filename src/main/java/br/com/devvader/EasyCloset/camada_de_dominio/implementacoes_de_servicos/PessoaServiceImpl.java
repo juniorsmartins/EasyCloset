@@ -69,8 +69,8 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void converterEntradaParaEntidade() {
             pessoaSalva = modelMapper.map(pessoaDeEntrada, Pessoa.class);
-            contatoSalvo = modelMapper.map(pessoaDeEntrada, Contato.class);
-            enderecoSalvo = modelMapper.map(pessoaDeEntrada, Endereco.class);
+            contatoSalvo = modelMapper.map(pessoaDeEntrada.getContato(), Contato.class);
+            enderecoSalvo = modelMapper.map(pessoaDeEntrada.getEndereco(), Endereco.class);
         }
 
         private void cadastrar() {
@@ -81,14 +81,14 @@ public final class PessoaServiceImpl implements IPessoaService {
 
             private void cadastrarContato() {
                 contatoSalvo.setPessoa(pessoaSalva);
-                pessoaSalva.setContato(contatoSalvo);
                 contatoRepository.save(contatoSalvo);
+                pessoaSalva.setContato(contatoSalvo);
             }
 
             private void cadastrarEndereco() {
                 enderecoSalvo.setPessoa(pessoaSalva);
-                pessoaSalva.setEndereco(enderecoSalvo);
                 enderecoRepository.save(enderecoSalvo);
+                pessoaSalva.setEndereco(enderecoSalvo);
             }
 
         private void converterEntidadeParaSaida() {
