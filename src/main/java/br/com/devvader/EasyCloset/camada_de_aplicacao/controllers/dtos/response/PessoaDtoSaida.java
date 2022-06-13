@@ -13,7 +13,6 @@ public final class PessoaDtoSaida {
     private String nome;
     private String sobrenome;
     private String cpf;
-
     private ContatoDtoSaida contato;
     private EnderecoDtoSaida endereco;
 
