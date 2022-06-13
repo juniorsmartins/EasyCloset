@@ -30,7 +30,7 @@ public class PessoaController {
 
     // ---------- MÉTODOS CONTROLADORES ---------- //
     // ----- Cadastrar
-    @PostMapping("/v1")
+    @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder
             uriBuilder) {

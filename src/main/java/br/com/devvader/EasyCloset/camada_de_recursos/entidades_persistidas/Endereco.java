@@ -1,5 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.EnderecoDtoEntrada;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -38,4 +39,15 @@ public final class Endereco implements Serializable {
     @MapsId
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
+    // ---------- CONSTRUTORES ---------- //
+    public Endereco(EnderecoDtoEntrada enderecoDtoEntrada) {
+        setCep(enderecoDtoEntrada.getCep());
+        setEstado(enderecoDtoEntrada.getEstado());
+        setCidade(enderecoDtoEntrada.getCidade());
+        setBairro(enderecoDtoEntrada.getBairro());
+        setLogradouro(enderecoDtoEntrada.getLogradouro());
+        setNumero(enderecoDtoEntrada.getNumero());
+        setComplemento(enderecoDtoEntrada.getComplemento());
+    }
 }

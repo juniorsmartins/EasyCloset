@@ -1,5 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.ContatoDtoEntrada;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -27,4 +28,10 @@ public final class Contato implements Serializable
     @MapsId
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
+    // ---------- CONSTRUTORES ---------- //
+    public Contato(ContatoDtoEntrada contatoDtoEntrada) {
+        setCelular(contatoDtoEntrada.getCelular());
+        setEmail(contatoDtoEntrada.getEmail());
+    }
 }

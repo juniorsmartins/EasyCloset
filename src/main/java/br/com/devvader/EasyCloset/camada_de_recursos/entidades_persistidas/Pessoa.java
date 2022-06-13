@@ -1,5 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -31,4 +32,13 @@ public final class Pessoa implements Serializable {
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER, orphanRemoval = true, optional = false)
     @PrimaryKeyJoinColumn
     private Endereco endereco;
+
+    // ---------- CONSTRUTORES ---------- //
+    public Pessoa(PessoaDtoEntrada pessoaDtoEntrada) {
+        setNome(pessoaDtoEntrada.getNome());
+        setSobrenome(pessoaDtoEntrada.getSobrenome());
+        setCpf(pessoaDtoEntrada.getCpf());
+        setContato(new Contato(pessoaDtoEntrada.getContato()));
+        setEndereco(new Endereco(pessoaDtoEntrada.getEndereco()));
+    }
 }
