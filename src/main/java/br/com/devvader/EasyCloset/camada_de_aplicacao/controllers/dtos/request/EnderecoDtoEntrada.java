@@ -4,22 +4,31 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @NoArgsConstructor
 @Data
 public final class EnderecoDtoEntrada {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String cep;
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String estado;
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String cidade;
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String bairro;
-    @NotBlank
+    @NotNull
+    @NotEmpty
     private String logradouro;
+    @Positive
     private int numero;
     private String complemento;
 }
