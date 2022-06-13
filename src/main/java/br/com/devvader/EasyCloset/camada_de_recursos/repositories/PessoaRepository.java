@@ -10,6 +10,6 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "pessoas", path = "pessoas")
 public interface PessoaRepository extends PagingAndSortingRepository<Pessoa, Long> {
 
-    Optional<Pessoa> findByCpf(String cpf);
+    Optional<Pessoa> findByCpf(@Param("cpf") String cpf);
     List<Pessoa> findByName(@Param("name") String name);
 }
