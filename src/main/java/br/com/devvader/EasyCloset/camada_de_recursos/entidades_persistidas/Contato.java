@@ -3,6 +3,8 @@ package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.ContatoDtoEntrada;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -25,8 +27,9 @@ public final class Contato implements Serializable
     private String email;
 
     @OneToOne
-    @MapsId
+/*    @MapsId*/
     @JoinColumn(name = "pessoa_id")
+    @RestResource(path = "contatoPessoa", rel = "pessoa")
     private Pessoa pessoa;
 
     // ---------- CONSTRUTORES ---------- //
