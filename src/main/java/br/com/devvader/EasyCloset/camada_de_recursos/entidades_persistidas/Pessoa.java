@@ -16,9 +16,10 @@ public final class Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pessoa_id")
-    private Long pessoaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
+    private Long id;
     @Column(name = "nome", length = 25, nullable = false)
     private String nome;
     @Column(name = "sobrenome", length = 40, nullable = false)
@@ -26,10 +27,10 @@ public final class Pessoa implements Serializable {
     @Column(name = "cpf", length = 14, unique = true, nullable = false)
     private String cpf;
 
-    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Contato contato;
-    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Endereco endereco;
 

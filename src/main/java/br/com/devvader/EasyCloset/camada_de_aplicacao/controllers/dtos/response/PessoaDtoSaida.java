@@ -18,7 +18,7 @@ public final class PessoaDtoSaida {
 
     // ---------- CONSTRUTORES ---------- //
     public PessoaDtoSaida(Pessoa pessoa) {
-        setPessoaId(pessoa.getPessoaId());
+        setPessoaId(pessoa.getId());
         setNome(pessoa.getNome());
         setSobrenome(pessoa.getSobrenome());
         setCpf(pessoa.getCpf());

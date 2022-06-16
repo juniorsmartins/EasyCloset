@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class ValidarCpfUnico implements IPessoaRegrasDeNegocio {
+public final class ValidarCpfUnicoPessoa implements IPessoaRegrasDeNegocio {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Autowired

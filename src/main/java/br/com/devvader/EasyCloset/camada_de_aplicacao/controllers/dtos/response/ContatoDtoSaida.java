@@ -15,7 +15,7 @@ public final class ContatoDtoSaida {
 
     // ---------- CONSTRUTORES ---------- //
     public ContatoDtoSaida(Contato contato) {
-        setPessoaId(contato.getPessoaId());
+        setPessoaId(contato.getId());
         setCelular(contato.getCelular());
         setEmail(contato.getEmail());
     }

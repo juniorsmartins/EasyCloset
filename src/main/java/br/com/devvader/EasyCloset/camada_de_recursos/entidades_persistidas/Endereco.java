@@ -18,7 +18,7 @@ public final class Endereco implements Serializable {
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
     @Column(name = "pessoa_id")
-    private Long pessoaId;
+    private Long id;
     @Column(name = "cep", length = 9, nullable = false)
     private String cep;
     @Column(name = "estado", length = 50, nullable = false)

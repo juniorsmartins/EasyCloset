@@ -39,10 +39,10 @@ public class PessoaController {
 
     // ----- Listar
     @GetMapping("/v1")
-    public Page<PessoaDtoSaida> listar(@RequestParam(required = false) PessoaDtoEntrada pessoaDtoEntrada,
+    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntrada pessoaDtoEntrada,
                                        @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0,
                                                size = 25) Pageable paginacao) {
-        return iPessoaService.listar(pessoaDtoEntrada, paginacao);
+        return iPessoaService.listar(pessoaDtoEntrada);
     }
 
     // ----- Consultar

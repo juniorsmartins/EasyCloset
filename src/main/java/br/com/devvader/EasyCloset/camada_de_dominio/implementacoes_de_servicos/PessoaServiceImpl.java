@@ -74,20 +74,18 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
         private void cadastrar() {
-            pessoaRepository.saveAndFlush(pessoaSalva);
             cadastrarContato();
             cadastrarEndereco();
+            pessoaRepository.saveAndFlush(pessoaSalva);
         }
 
             private void cadastrarContato() {
                 contatoSalvo.setPessoa(pessoaSalva);
-                contatoRepository.save(contatoSalvo);
                 pessoaSalva.setContato(contatoSalvo);
             }
 
             private void cadastrarEndereco() {
                 enderecoSalvo.setPessoa(pessoaSalva);
-                enderecoRepository.save(enderecoSalvo);
                 pessoaSalva.setEndereco(enderecoSalvo);
             }
 
@@ -97,7 +95,7 @@ public final class PessoaServiceImpl implements IPessoaService {
 
     // ----- Listar
     @Override
-    public Page<PessoaDtoSaida> listar(PessoaDtoEntrada pessoaDtoEntrada, Pageable paginacao) {
+    public ResponseEntity<?> listar(PessoaDtoEntrada pessoaDtoEntrada) {
         return null;
     }
 

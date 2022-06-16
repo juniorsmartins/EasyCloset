@@ -20,7 +20,7 @@ public final class EnderecoDtoSaida {
 
     // ---------- CONSTRUTORES ---------- //
     public EnderecoDtoSaida(Endereco endereco) {
-        setPessoaId(endereco.getPessoaId());
+        setPessoaId(endereco.getId());
         setCep(endereco.getCep());
         setEstado(endereco.getEstado());
         setCidade(endereco.getCidade());
