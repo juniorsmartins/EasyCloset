@@ -17,8 +17,8 @@ public final class ContatoDtoEntrada {
     @NotEmpty(message = "{campo.celular.obrigatorio}")
     @Length(min = 8, max = 15, message = "{campo.celular.tamanho-limite}")
     private String celular;
-    @NotNull(message = "{}")
-    @NotEmpty(message = "{}")
-    @Email(message = "{}")
+    @NotNull(message = "{campo.email.obrigatorio}")
+    @NotEmpty(message = "{campo.email.obrigatorio}")
+    @Email(message = "{campo.email.valido}")
     private String email;
 }
