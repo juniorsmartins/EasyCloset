@@ -120,6 +120,15 @@ public final class PessoaServiceImpl implements IPessoaService {
             exampleFiltro = Example.of(modelMapper.map(pessoaDeEntrada, Pessoa.class), matcher);
         }
 
+        private void converterListaEntidadesParaSaida() {
+
+            listaDePessoasDeSaida.addAll(listaDePessoasSalvas
+                    .stream()
+                    .map(PessoaDtoSaida::new)
+                    .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
+                    .toList());
+        }
+
     // ----- Atualizar
 
     // ----- Deletar
@@ -136,14 +145,5 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void buscarTodos() {
             listaDePessoasSalvas = pessoaRepository.findAll();
-        }
-
-        private void converterListaEntidadesParaSaida() {
-
-            listaDePessoasDeSaida.addAll(listaDePessoasSalvas
-                    .stream()
-                    .map(PessoaDtoSaida::new)
-                    .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
-                    .toList());
         }
 }
