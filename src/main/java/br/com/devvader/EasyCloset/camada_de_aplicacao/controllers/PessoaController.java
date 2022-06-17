@@ -34,7 +34,7 @@ public class PessoaController {
 
     // ----- Listar
     @GetMapping("/v1")
-    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntradaListar pessoaDtoEntradaListar) {
+    public ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar) {
         return iPessoaService.listar(pessoaDtoEntradaListar);
     }
 

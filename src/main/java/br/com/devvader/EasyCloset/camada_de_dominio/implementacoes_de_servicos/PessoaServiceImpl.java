@@ -70,8 +70,6 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void converterEntradaParaEntidade() {
             pessoaSalva = modelMapper.map(pessoaDeEntrada, Pessoa.class);
-            contatoSalvo = modelMapper.map(pessoaDeEntrada.getContato(), Contato.class);
-            enderecoSalvo = modelMapper.map(pessoaDeEntrada.getEndereco(), Endereco.class);
         }
 
         private void cadastrar() {
@@ -81,13 +79,11 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
             private void cadastrarContato() {
-                contatoSalvo.setPessoa(pessoaSalva);
-                pessoaSalva.setContato(contatoSalvo);
+                pessoaSalva.getContato().setPessoa(pessoaSalva);
             }
 
             private void cadastrarEndereco() {
-                enderecoSalvo.setPessoa(pessoaSalva);
-                pessoaSalva.setEndereco(enderecoSalvo);
+                pessoaSalva.getEndereco().setPessoa(pessoaSalva);
             }
 
         private void converterEntidadeParaSaida() {
@@ -100,7 +96,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaListar, PessoaDtoEntrada.class);
 
         criarExampleConfiguradoPorExampleMatcher();
-        listaDePessoasSalvas.addAll(pessoaRepository.findAll(exampleFiltro));
+        listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
         if(listaDePessoasSalvas.isEmpty())
             buscarTodos();
