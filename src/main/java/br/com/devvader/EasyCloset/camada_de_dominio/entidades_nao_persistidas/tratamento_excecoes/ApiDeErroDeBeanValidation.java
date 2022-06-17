@@ -5,14 +5,14 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public final class ApiDeErrosDeBeanValidation {
+public final class ApiDeErroDeBeanValidation {
 
     private String status;
     private String mensagem;
     private String anotacao;
     private String nomeDoCampo;
 
-    public ApiDeErrosDeBeanValidation(String status, String mensagem, String anotacao, String nomeDoCampo) {
+    public ApiDeErroDeBeanValidation(String status, String mensagem, String anotacao, String nomeDoCampo) {
         setStatus(status);
         setMensagem(mensagem);
         setAnotacao(anotacao);

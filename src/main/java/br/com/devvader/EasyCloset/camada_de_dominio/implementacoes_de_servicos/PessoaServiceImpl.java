@@ -4,8 +4,8 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.ValidacaoException;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.regras_pessoa.IPessoaRegrasDeNegocio;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RegraDeNegocioException;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
@@ -15,8 +15,6 @@ import br.com.devvader.EasyCloset.camada_de_recursos.repositories.EnderecoReposi
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.PessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -55,7 +53,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         // ----- Pattern
         try {
             listaDeRegrasDeNegocio.forEach(v -> v.validar(pessoaDeEntrada));
-        }catch (ValidacaoException ve) {
+        }catch (RegraDeNegocioException ve) {
             return ResponseEntity.badRequest().body(ve.getMessage());
         }
 

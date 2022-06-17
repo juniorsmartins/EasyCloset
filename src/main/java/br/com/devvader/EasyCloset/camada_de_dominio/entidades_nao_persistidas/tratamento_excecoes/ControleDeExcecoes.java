@@ -19,19 +19,28 @@ public final class ControleDeExcecoes {
     @Autowired
     private MessageSource mensagemInter;
 
+    // Filtra exceções do Bean Validation
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> excecaoMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
-        List<ApiDeErrosDeBeanValidation> listaDeErrosDeBeanValidations = new ArrayList<>();
+    public ResponseEntity<?> filtrarMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        List<ApiDeErroDeBeanValidation> listaDeErrosDeBeanValidations = new ArrayList<>();
 
         List<FieldError> fieldErrors = methodArgumentNotValidException.getBindingResult().getFieldErrors();
         fieldErrors.forEach(erro -> {
             String mensagem = mensagemInter.getMessage(erro, LocaleContextHolder.getLocale());
-            ApiDeErrosDeBeanValidation erroDeBeanValidation = new ApiDeErrosDeBeanValidation(
+            ApiDeErroDeBeanValidation erroDeBeanValidation = new ApiDeErroDeBeanValidation(
                     HttpStatus.BAD_REQUEST.toString(), mensagem, erro.getCode(), erro.getField());
             listaDeErrosDeBeanValidations.add(erroDeBeanValidation);
         });
 
         return ResponseEntity.badRequest().body(listaDeErrosDeBeanValidations.get(0));
     }
+
+    @ExceptionHandler(RegraDeNegocioException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiDeQuebraDeRegraDeNegocio filtrarRegraDeNegocioException(RegraDeNegocioException regraDeNegocioException) {
+        return new ApiDeQuebraDeRegraDeNegocio(HttpStatus.CONFLICT.toString(), regraDeNegocioException.getMessage());
+    }
+
+
 }
