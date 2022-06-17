@@ -1,6 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_dominio.implementacoes_de_servicos;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
@@ -16,10 +17,13 @@ import br.com.devvader.EasyCloset.camada_de_recursos.repositories.EnderecoReposi
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.PessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -47,6 +51,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     private EnderecoDtoSaida enderecoDeSaida;
     private List<Pessoa> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
+    private Example exampleFiltro;
 
     // ---------- MÉTODOS DE SERVIÇO ---------- //
     // ----- Cadastrar
@@ -55,7 +60,6 @@ public final class PessoaServiceImpl implements IPessoaService {
         pessoaDeEntrada = pessoaDtoEntrada;
 
         listaDeRegrasDeNegocio.forEach(regra -> regra.validar(pessoaDeEntrada));
-
         converterEntradaParaEntidade();
         cadastrar();
         converterEntidadeParaSaida();
@@ -92,12 +96,30 @@ public final class PessoaServiceImpl implements IPessoaService {
 
     // ----- Listar
     @Override
-    public ResponseEntity<?> listar(PessoaDtoEntrada pessoaDtoEntrada) {
-        return null;
+    public ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar) {
+        pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaListar, PessoaDtoEntrada.class);
+
+        criarExampleConfiguradoPorExampleMatcher();
+        listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
+
+        if(listaDePessoasSalvas.isEmpty())
+            return ResponseEntity.ok().body(new ArrayList<>());
+
+        converterListaEntidadesParaSaida();
+        return ResponseEntity.ok().body(listaDePessoasDeSaida);
     }
 
+        private void criarExampleConfiguradoPorExampleMatcher() {
+            // ExampleMatcher - permite configurar condições para serem aplicadas nos filtros
+            ExampleMatcher matcher = ExampleMatcher
+                    .matching()
+                    .withIgnoreNullValues()
+                    .withIgnoreCase() // Ignore caixa alta ou baixa - quando String
+                    .withStringMatcher(ExampleMatcher.StringMatcher.STARTING); // permite encontrar palavras tipo Like com Containing
+            // Example - pega campos populados para criar filtros
+            exampleFiltro = Example.of(modelMapper.map(pessoaDeEntrada, Pessoa.class), matcher);
+        }
 
-    // ----- Consultar
     // ----- Atualizar
 
     // ----- Deletar
@@ -118,10 +140,10 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void converterListaEntidadesParaSaida() {
 
-            listaDePessoasDeSaida = listaDePessoasSalvas
+            listaDePessoasDeSaida.addAll(listaDePessoasSalvas
                     .stream()
                     .map(PessoaDtoSaida::new)
                     .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
-                    .toList();
+                    .toList());
         }
 }

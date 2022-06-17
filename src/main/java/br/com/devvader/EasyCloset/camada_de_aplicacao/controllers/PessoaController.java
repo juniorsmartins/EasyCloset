@@ -1,6 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -37,10 +38,10 @@ public class PessoaController {
 
     // ----- Listar
     @GetMapping("/v1")
-    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntrada pessoaDtoEntrada,
+    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntradaListar pessoaDtoEntradaListar,
                                        @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0,
                                                size = 25) Pageable paginacao) {
-        return iPessoaService.listar(pessoaDtoEntrada);
+        return iPessoaService.listar(pessoaDtoEntradaListar);
     }
 
     // ----- Consultar
