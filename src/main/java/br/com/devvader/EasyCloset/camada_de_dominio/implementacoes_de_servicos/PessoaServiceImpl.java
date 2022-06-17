@@ -1,6 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_dominio.implementacoes_de_servicos;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
@@ -108,6 +109,10 @@ public final class PessoaServiceImpl implements IPessoaService {
             exampleFiltro = Example.of(modelMapper.map(pessoaDeEntrada, Pessoa.class), matcher);
         }
 
+        private void buscarTodos() {
+            listaDePessoasSalvas = pessoaRepository.findAll();
+        }
+
         private void converterListaEntidadesParaSaida() {
 
             listaDePessoasDeSaida = listaDePessoasSalvas
@@ -116,8 +121,6 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
                     .toList();
         }
-
-    // ----- Atualizar
 
     // ----- Deletar
     @Override
@@ -132,7 +135,11 @@ public final class PessoaServiceImpl implements IPessoaService {
                 }).orElseThrow(() -> new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}"));
     }
 
-        private void buscarTodos() {
-            listaDePessoasSalvas = pessoaRepository.findAll();
-        }
+    // ----- Atualizar
+    @Override
+    public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
+
+
+        return null;
+    }
 }
