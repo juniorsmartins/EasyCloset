@@ -4,6 +4,7 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RegraDeNegocioException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -43,6 +45,8 @@ public final class PessoaServiceImpl implements IPessoaService {
     private ContatoDtoSaida contatoDeSaida;
     private Endereco enderecoSalvo;
     private EnderecoDtoSaida enderecoDeSaida;
+    private List<Pessoa> listaDePessoasSalvas;
+    private List<PessoaDtoSaida> listaDePessoasDeSaida;
 
     // ---------- MÉTODOS DE SERVIÇO ---------- //
     // ----- Cadastrar
@@ -94,6 +98,30 @@ public final class PessoaServiceImpl implements IPessoaService {
 
 
     // ----- Consultar
-    // ----- Deletar
     // ----- Atualizar
+
+    // ----- Deletar
+    @Override
+    public ResponseEntity<?> deletar(Long id) {
+        return pessoaRepository.findById(id)
+                .map(pessoa -> {
+                    pessoaRepository.delete(pessoa);
+                    buscarTodos();
+                    converterListaEntidadesParaSaida();
+                    return ResponseEntity.ok().body(listaDePessoasDeSaida);
+                }).orElseThrow(() -> new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}"));
+    }
+
+        private void buscarTodos() {
+            listaDePessoasSalvas = pessoaRepository.findAll();
+        }
+
+        private void converterListaEntidadesParaSaida() {
+
+            listaDePessoasDeSaida = listaDePessoasSalvas
+                    .stream()
+                    .map(PessoaDtoSaida::new)
+                    .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
+                    .toList();
+        }
 }

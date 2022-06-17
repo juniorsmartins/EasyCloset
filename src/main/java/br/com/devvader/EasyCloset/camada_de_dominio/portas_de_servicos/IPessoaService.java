@@ -8,5 +8,5 @@ public interface IPessoaService {
 
     ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder);
     ResponseEntity<?> listar(PessoaDtoEntrada pessoaDtoEntrada);
-
+    ResponseEntity<?> deletar(Long id);
 }

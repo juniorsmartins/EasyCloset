@@ -44,6 +44,12 @@ public class PessoaController {
     }
 
     // ----- Consultar
-    // ----- Deletar
     // ----- Atualizar
+
+    // ----- Deletar
+    @DeleteMapping("/v1/{id}")
+    @Transactional
+    public ResponseEntity<?> deletar(@PathVariable(name = "id") Long id) {
+        return iPessoaService.deletar(id);
+    }
 }
