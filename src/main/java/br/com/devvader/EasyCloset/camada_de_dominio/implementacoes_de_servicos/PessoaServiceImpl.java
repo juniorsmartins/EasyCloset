@@ -50,12 +50,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     public ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder) {
         pessoaDeEntrada = pessoaDtoEntrada;
 
-        // ----- Pattern
-        try {
-            listaDeRegrasDeNegocio.forEach(v -> v.validar(pessoaDeEntrada));
-        }catch (RegraDeNegocioException ve) {
-            return ResponseEntity.badRequest().body(ve.getMessage());
-        }
+        listaDeRegrasDeNegocio.forEach(regra -> regra.validar(pessoaDeEntrada));
 
         converterEntradaParaEntidade();
         cadastrar();
