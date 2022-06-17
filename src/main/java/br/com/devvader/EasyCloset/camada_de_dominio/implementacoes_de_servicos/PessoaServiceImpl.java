@@ -100,10 +100,10 @@ public final class PessoaServiceImpl implements IPessoaService {
         pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaListar, PessoaDtoEntrada.class);
 
         criarExampleConfiguradoPorExampleMatcher();
-        listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
+        listaDePessoasSalvas.addAll(pessoaRepository.findAll(exampleFiltro));
 
         if(listaDePessoasSalvas.isEmpty())
-            return ResponseEntity.ok().body(new ArrayList<>());
+            buscarTodos();
 
         converterListaEntidadesParaSaida();
         return ResponseEntity.ok().body(listaDePessoasDeSaida);
@@ -122,11 +122,11 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void converterListaEntidadesParaSaida() {
 
-            listaDePessoasDeSaida.addAll(listaDePessoasSalvas
+            listaDePessoasDeSaida = listaDePessoasSalvas
                     .stream()
                     .map(PessoaDtoSaida::new)
                     .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
-                    .toList());
+                    .toList();
         }
 
     // ----- Atualizar
@@ -134,6 +134,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Deletar
     @Override
     public ResponseEntity<?> deletar(Long id) {
+
         return pessoaRepository.findById(id)
                 .map(pessoa -> {
                     pessoaRepository.delete(pessoa);

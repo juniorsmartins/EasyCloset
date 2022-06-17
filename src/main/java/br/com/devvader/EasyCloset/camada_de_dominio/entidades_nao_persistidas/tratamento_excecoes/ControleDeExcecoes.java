@@ -42,5 +42,11 @@ public final class ControleDeExcecoes {
         return new ApiDeQuebraDeRegraDeNegocio(HttpStatus.CONFLICT.toString(), regraDeNegocioException.getMessage());
     }
 
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public ApiDeErroQualquer filtrarExcecaoNaConversaoDeValores(NumberFormatException numberFormatException) {
+        return new ApiDeErroQualquer(HttpStatus.NOT_ACCEPTABLE.toString(), numberFormatException.getMessage());
+    }
+
 
 }

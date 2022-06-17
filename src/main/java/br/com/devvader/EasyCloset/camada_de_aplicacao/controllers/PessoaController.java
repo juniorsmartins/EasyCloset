@@ -4,13 +4,9 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -29,7 +25,7 @@ public class PessoaController {
 
     // ---------- MÉTODOS CONTROLADORES ---------- //
     // ----- Cadastrar
-    @PostMapping
+    @PostMapping("/v1")
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder
             uriBuilder) {
@@ -38,14 +34,12 @@ public class PessoaController {
 
     // ----- Listar
     @GetMapping("/v1")
-    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntradaListar pessoaDtoEntradaListar,
-                                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC, page = 0,
-                                               size = 25) Pageable paginacao) {
+    public ResponseEntity<?> listar(@RequestParam(required = false) PessoaDtoEntradaListar pessoaDtoEntradaListar) {
         return iPessoaService.listar(pessoaDtoEntradaListar);
     }
 
-    // ----- Consultar
     // ----- Atualizar
+
 
     // ----- Deletar
     @DeleteMapping("/v1/{id}")
