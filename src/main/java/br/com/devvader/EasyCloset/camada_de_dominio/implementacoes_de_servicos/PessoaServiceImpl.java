@@ -73,18 +73,10 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
         private void cadastrar() {
-            cadastrarContato();
-            cadastrarEndereco();
+            pessoaSalva.getContato().setPessoa(pessoaSalva);
+            pessoaSalva.getEndereco().setPessoa(pessoaSalva);
             pessoaRepository.saveAndFlush(pessoaSalva);
         }
-
-            private void cadastrarContato() {
-                pessoaSalva.getContato().setPessoa(pessoaSalva);
-            }
-
-            private void cadastrarEndereco() {
-                pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-            }
 
         private void converterEntidadeParaSaida() {
             pessoaDeSaida = new PessoaDtoSaida(pessoaSalva);
