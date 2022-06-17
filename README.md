@@ -1,4 +1,4 @@
-# EasyCloset
+# EASYCLOSET
 
 # ÍNDICE
 
