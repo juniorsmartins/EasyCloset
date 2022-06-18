@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @Data
 @NoArgsConstructor
@@ -33,7 +34,7 @@ public final class EnderecoDtoEntrada {
     @Length(min = 2, max = 100, message = "{campo.logradouro.tamanho-limite}")
     private String logradouro;
     @NotNull(message = "{campo.numero.nao-nulo}")
-    @Positive(message = "{campo.numero.positivo}")
+    @PositiveOrZero(message = "{campo.numero.positivo-zero}")
     private int numero;
     private String complemento;
 }
