@@ -17,7 +17,7 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping("/pessoas/v1")
+@RequestMapping("/v1/pessoas")
 public class PessoaController {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //

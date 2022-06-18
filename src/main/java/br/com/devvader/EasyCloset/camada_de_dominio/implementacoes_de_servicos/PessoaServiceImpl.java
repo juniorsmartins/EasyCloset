@@ -45,6 +45,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     private PessoaDtoSaidaDetalhada pessoaDeSaidaDetalhada;
     private List<Pessoa> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
+    private PessoaDtoEntradaListar filtrosParaPesquisa;
     private Example exampleFiltro;
 
     // ---------- MÉTODOS DE SERVIÇO ---------- //
@@ -80,15 +81,15 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Listar
     @Override
     public ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar) {
-        pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaListar, PessoaDtoEntrada.class);
+        filtrosParaPesquisa = pessoaDtoEntradaListar;
 
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
         if(listaDePessoasSalvas.isEmpty())
-            buscarTodos();
+            throw new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}");
 
-        if(pessoaDtoEntradaListar.getPessoaId() != null) {
+        if(filtrosParaPesquisa.getPessoaId() != null || filtrosParaPesquisa.getCpf() != null) {
             pessoaSalva = listaDePessoasSalvas.get(0);
             converterEntidadeParaSaidaDetalhada();
             return ResponseEntity.ok().body(pessoaDeSaidaDetalhada);
@@ -102,11 +103,12 @@ public final class PessoaServiceImpl implements IPessoaService {
             // ExampleMatcher - permite configurar condições para serem aplicadas nos filtros
             ExampleMatcher matcher = ExampleMatcher
                     .matching()
-                    .withIgnoreNullValues()
                     .withIgnoreCase() // Ignore caixa alta ou baixa - quando String
-                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING); // permite encontrar palavras tipo Like com Containing
+                    .withIgnoreNullValues()
+                    .withStringMatcher(ExampleMatcher
+                            .StringMatcher.STARTING); // permite encontrar palavras tipo Like com Containing
             // Example - pega campos populados para criar filtros
-            exampleFiltro = Example.of(modelMapper.map(pessoaDeEntrada, Pessoa.class), matcher);
+            exampleFiltro = Example.of(modelMapper.map(filtrosParaPesquisa, Pessoa.class), matcher);
         }
 
         private void buscarTodos() {

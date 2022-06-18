@@ -42,6 +42,12 @@ public final class ControleDeExcecoes {
         return new ApiDeQuebraDeRegraDeNegocio(HttpStatus.CONFLICT.toString(), regraDeNegocioException.getMessage());
     }
 
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiDeErroQualquer filtrarRecursoNaoEncontradoException(RecursoNaoEncontradoException recursoNaoEncontradoException) {
+        return new ApiDeErroQualquer(HttpStatus.BAD_REQUEST.toString(), recursoNaoEncontradoException.getMessage());
+    }
+
     @ExceptionHandler(NumberFormatException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ApiDeErroQualquer filtrarExcecaoNaConversaoDeValores(NumberFormatException numberFormatException) {
