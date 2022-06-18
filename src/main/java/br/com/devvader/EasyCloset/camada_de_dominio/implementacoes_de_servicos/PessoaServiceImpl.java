@@ -3,14 +3,10 @@ package br.com.devvader.EasyCloset.camada_de_dominio.implementacoes_de_servicos;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
-import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
-import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.ContatoRepository;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.EnderecoRepository;
@@ -85,7 +81,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
-        if(listaDePessoasSalvas.isEmpty())
+        if (listaDePessoasSalvas.isEmpty())
             buscarTodos();
 
         converterListaEntidadesParaSaida();
@@ -132,9 +128,29 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Atualizar
     @Override
     public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
-        pessoaSalva = modelMapper.map(pessoaDtoEntradaAtualizar, Pessoa.class);
+        pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaAtualizar, PessoaDtoEntrada.class);
 
-
-        return null;
+        return pessoaRepository.findById(pessoaDtoEntradaAtualizar.getId())
+                .map(pessoa -> {
+                    pessoaSalva = pessoa;
+                    atualizarPessoa();
+                    converterEntidadeParaSaida();
+                    return ResponseEntity.ok().body(pessoaDeSaida);
+                }).orElseThrow(() -> new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}"));
     }
+
+        private void atualizarPessoa() {
+            pessoaSalva.setNome(pessoaDeEntrada.getNome());
+            pessoaSalva.setSobrenome(pessoaDeEntrada.getSobrenome());
+            pessoaSalva.setCpf(pessoaDeEntrada.getCpf());
+            pessoaSalva.getContato().setCelular(pessoaDeEntrada.getContato().getCelular());
+            pessoaSalva.getContato().setEmail(pessoaDeEntrada.getContato().getEmail());
+            pessoaSalva.getEndereco().setCep(pessoaDeEntrada.getEndereco().getCep());
+            pessoaSalva.getEndereco().setEstado(pessoaDeEntrada.getEndereco().getEstado());
+            pessoaSalva.getEndereco().setCidade(pessoaDeEntrada.getEndereco().getCidade());
+            pessoaSalva.getEndereco().setBairro(pessoaDeEntrada.getEndereco().getBairro());
+            pessoaSalva.getEndereco().setLogradouro(pessoaDeEntrada.getEndereco().getLogradouro());
+            pessoaSalva.getEndereco().setNumero(pessoaDeEntrada.getEndereco().getNumero());
+            pessoaSalva.getEndereco().setComplemento(pessoaDeEntrada.getEndereco().getComplemento());
+        }
 }
