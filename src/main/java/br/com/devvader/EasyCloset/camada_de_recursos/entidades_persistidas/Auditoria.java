@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "auditoria")
+@Table(name = "auditorias")
 @Data
 @NoArgsConstructor
 public final class Auditoria implements Serializable {
@@ -18,7 +18,9 @@ public final class Auditoria implements Serializable {
     @Id
     @Column(name = "pessoa_id")
     private Long pessoaId;
+    @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
+    @Column(name = "data_ultima_atualizacao")
     private LocalDateTime dataUltimaAtualizacao;
 
     @OneToOne

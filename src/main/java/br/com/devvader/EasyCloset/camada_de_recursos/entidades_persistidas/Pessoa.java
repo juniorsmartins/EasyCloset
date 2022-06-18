@@ -2,20 +2,17 @@ package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pessoas")
 @Data
-@NoArgsConstructor
 public final class Pessoa implements Serializable {
 
-    // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;
 
-    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
@@ -37,12 +34,21 @@ public final class Pessoa implements Serializable {
     @PrimaryKeyJoinColumn
     private Auditoria auditoria;
 
-    // ---------- CONSTRUTORES ---------- //
+    public Pessoa() {
+        criarAuditoria();
+    }
     public Pessoa(PessoaDtoEntrada pessoaDtoEntrada) {
         setNome(pessoaDtoEntrada.getNome());
         setSobrenome(pessoaDtoEntrada.getSobrenome());
         setCpf(pessoaDtoEntrada.getCpf());
         setContato(new Contato(pessoaDtoEntrada.getContato()));
         setEndereco(new Endereco(pessoaDtoEntrada.getEndereco()));
+        criarAuditoria();
     }
+
+        private void criarAuditoria() {
+            Auditoria auditoria = new Auditoria();
+            auditoria.setDataCriacao(LocalDateTime.now());
+            setAuditoria(auditoria);
+        }
 }
