@@ -4,11 +4,10 @@ import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Ender
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public final class EnderecoDtoSaida {
 
-    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     private Long pessoaId;
     private String cep;
     private String estado;
@@ -18,9 +17,8 @@ public final class EnderecoDtoSaida {
     private int numero;
     private String complemento;
 
-    // ---------- CONSTRUTORES ---------- //
     public EnderecoDtoSaida(Endereco endereco) {
-        setPessoaId(endereco.getId());
+        setPessoaId(endereco.getPessoaId());
         setCep(endereco.getCep());
         setEstado(endereco.getEstado());
         setCidade(endereco.getCidade());

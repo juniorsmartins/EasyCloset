@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class PessoaDtoEntradaListar {
 
-    private String id;
+    private String pessoaId;
     private String nome;
     private String sobrenome;
     private String cpf;

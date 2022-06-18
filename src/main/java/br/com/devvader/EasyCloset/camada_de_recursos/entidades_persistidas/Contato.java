@@ -18,7 +18,7 @@ public final class Contato implements Serializable
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
     @Column(name = "pessoa_id")
-    private Long id;
+    private Long pessoaId;
     @Column(name = "celular", length = 25, nullable = false)
     private String celular;
     @Column(name = "email", length = 100, nullable = false)

@@ -4,6 +4,7 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaidaDetalhada;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -40,6 +42,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     private PessoaDtoEntrada pessoaDeEntrada;
     private Pessoa pessoaSalva;
     private PessoaDtoSaida pessoaDeSaida;
+    private PessoaDtoSaidaDetalhada pessoaDeSaidaDetalhada;
     private List<Pessoa> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
     private Example exampleFiltro;
@@ -82,8 +85,14 @@ public final class PessoaServiceImpl implements IPessoaService {
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
-        if (listaDePessoasSalvas.isEmpty())
+        if(listaDePessoasSalvas.isEmpty())
             buscarTodos();
+
+        if(pessoaDtoEntradaListar.getPessoaId() != null) {
+            pessoaSalva = listaDePessoasSalvas.get(0);
+            converterEntidadeParaSaidaDetalhada();
+            return ResponseEntity.ok().body(pessoaDeSaidaDetalhada);
+        }
 
         converterListaEntidadesParaSaida();
         return ResponseEntity.ok().body(listaDePessoasDeSaida);
@@ -102,6 +111,10 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         private void buscarTodos() {
             listaDePessoasSalvas = pessoaRepository.findAll();
+        }
+
+        private void converterEntidadeParaSaidaDetalhada() {
+
         }
 
         private void converterListaEntidadesParaSaida() {
@@ -131,7 +144,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
         pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaAtualizar, PessoaDtoEntrada.class);
 
-        return pessoaRepository.findById(pessoaDtoEntradaAtualizar.getId())
+        return pessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
                 .map(pessoa -> {
                     pessoaSalva = pessoa;
                     atualizarPessoa();
@@ -153,5 +166,6 @@ public final class PessoaServiceImpl implements IPessoaService {
             pessoaSalva.getEndereco().setLogradouro(pessoaDeEntrada.getEndereco().getLogradouro());
             pessoaSalva.getEndereco().setNumero(pessoaDeEntrada.getEndereco().getNumero());
             pessoaSalva.getEndereco().setComplemento(pessoaDeEntrada.getEndereco().getComplemento());
+            pessoaSalva.getAuditoria().setDataUltimaAtualizacao(LocalDateTime.now());
         }
 }
