@@ -17,7 +17,7 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping("/pessoas")
+@RequestMapping("/pessoas/v1")
 public class PessoaController {
 
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
@@ -26,7 +26,7 @@ public class PessoaController {
 
     // ---------- MÉTODOS CONTROLADORES ---------- //
     // ----- Cadastrar
-    @PostMapping("/v1")
+    @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder
             uriBuilder) {
@@ -34,22 +34,22 @@ public class PessoaController {
     }
 
     // ----- Listar
-    @GetMapping("/v1")
+    @GetMapping
     public ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar) {
         return iPessoaService.listar(pessoaDtoEntradaListar);
     }
 
     // ----- Deletar
-    @DeleteMapping("/v1/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<?> deletar(@PathVariable(name = "id") Long id) {
         return iPessoaService.deletar(id);
     }
 
     // ----- Atualizar
-    @PutMapping("/v1")
+    @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
+    public ResponseEntity<?> atualizar(@RequestBody @Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
         return iPessoaService.atualizar(pessoaDtoEntradaAtualizar);
     }
 }

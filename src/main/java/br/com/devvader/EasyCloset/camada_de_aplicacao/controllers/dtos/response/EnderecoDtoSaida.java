@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public final class EnderecoDtoSaida {
 
-    private Long pessoaId;
     private String cep;
     private String estado;
     private String cidade;
@@ -18,7 +17,6 @@ public final class EnderecoDtoSaida {
     private String complemento;
 
     public EnderecoDtoSaida(Endereco endereco) {
-        setPessoaId(endereco.getPessoaId());
         setCep(endereco.getCep());
         setEstado(endereco.getEstado());
         setCidade(endereco.getCidade());

@@ -104,7 +104,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .matching()
                     .withIgnoreNullValues()
                     .withIgnoreCase() // Ignore caixa alta ou baixa - quando String
-                    .withStringMatcher(ExampleMatcher.StringMatcher.STARTING); // permite encontrar palavras tipo Like com Containing
+                    .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING); // permite encontrar palavras tipo Like com Containing
             // Example - pega campos populados para criar filtros
             exampleFiltro = Example.of(modelMapper.map(pessoaDeEntrada, Pessoa.class), matcher);
         }
@@ -114,7 +114,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
         private void converterEntidadeParaSaidaDetalhada() {
-
+            pessoaDeSaidaDetalhada = modelMapper.map(pessoaSalva, PessoaDtoSaidaDetalhada.class);
         }
 
         private void converterListaEntidadesParaSaida() {
