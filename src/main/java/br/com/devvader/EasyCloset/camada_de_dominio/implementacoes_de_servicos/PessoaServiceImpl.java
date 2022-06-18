@@ -87,10 +87,8 @@ public final class PessoaServiceImpl implements IPessoaService {
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
-        if(listaDePessoasSalvas.isEmpty())
-            throw new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO);
-
-        if(filtrosParaPesquisa.getPessoaId() != null || filtrosParaPesquisa.getCpf() != null) {
+        if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getPessoaId() != null
+                || filtrosParaPesquisa.getCpf() != null)) {
             pessoaSalva = listaDePessoasSalvas.get(0);
             converterEntidadeParaSaidaDetalhada();
             return ResponseEntity.ok().body(pessoaDeSaidaDetalhada);
