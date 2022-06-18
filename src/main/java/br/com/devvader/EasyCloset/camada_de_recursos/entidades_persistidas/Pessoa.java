@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "pessoas")
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public final class Pessoa implements Serializable {
 
     // ---------- ATRIBUTOS DE CLASSE ---------- //
@@ -33,6 +33,9 @@ public final class Pessoa implements Serializable {
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private Endereco endereco;
+    @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private Auditoria auditoria;
 
     // ---------- CONSTRUTORES ---------- //
     public Pessoa(PessoaDtoEntrada pessoaDtoEntrada) {
