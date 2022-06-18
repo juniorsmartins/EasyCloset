@@ -7,7 +7,6 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RegraDeNegocioException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
@@ -24,7 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -46,10 +44,6 @@ public final class PessoaServiceImpl implements IPessoaService {
     private PessoaDtoEntrada pessoaDeEntrada;
     private Pessoa pessoaSalva;
     private PessoaDtoSaida pessoaDeSaida;
-    private Contato contatoSalvo;
-    private ContatoDtoSaida contatoDeSaida;
-    private Endereco enderecoSalvo;
-    private EnderecoDtoSaida enderecoDeSaida;
     private List<Pessoa> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
     private Example exampleFiltro;
@@ -138,6 +132,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Atualizar
     @Override
     public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
+        pessoaSalva = modelMapper.map(pessoaDtoEntradaAtualizar, Pessoa.class);
 
 
         return null;

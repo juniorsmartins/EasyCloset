@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public final class PessoaDtoEntrada {
 
-    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
-    private Long id;
     @NotNull(message = "{campo.nome.obrigatorio}")
     @NotEmpty(message = "{campo.nome.obrigatorio}")
     @Length(min = 2, max = 50, message = "{campo.nome.tamanho-limite}")
