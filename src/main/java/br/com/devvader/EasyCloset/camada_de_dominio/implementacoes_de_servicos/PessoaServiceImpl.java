@@ -5,6 +5,7 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaidaDetalhada;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
@@ -87,7 +88,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
 
         if(listaDePessoasSalvas.isEmpty())
-            throw new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}");
+            throw new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO);
 
         if(filtrosParaPesquisa.getPessoaId() != null || filtrosParaPesquisa.getCpf() != null) {
             pessoaSalva = listaDePessoasSalvas.get(0);
