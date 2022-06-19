@@ -3,7 +3,7 @@
 ## ÍNDICE
 
 1. [Metodologia](#Metodologia);
-2. Visão do Projeto;
+2. [Visão do Projeto](#Visao-do-projeto);
 3. Status do Projeto;
 4. Estrutura Analítica do Projeto (EAP);
 5. Cronograma de Releases;
@@ -33,9 +33,13 @@ O desenvolvimento do software, EasyCloset se dá por meio da mescla de vários c
 
 # 6. TECNOLOGIAS
 
-...
+```
 Java
-...
+Spring
+APIRest
+PostgreSQL
+Postman
+```
 
 
 # 7. ARQUITETURA
