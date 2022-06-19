@@ -8,8 +8,8 @@
 4. Cronograma de Releases;
 5. Tecnologias;
 6. Arquitetura;
-7. Linguagem de Modelagem Unificada (UML);
-8. Diagrama Entidade Relacionamento (DER);
+7. Funcionalidades;
+8. Banco de dados;
 9. Endpoints;
 10. Licença;
 11. Contatos.
@@ -20,30 +20,25 @@ O desenvolvimento do software, EasyCloset se dá por meio da mescla de vários c
 
 > Artigo 1: [Colcha de retalhos metodológica para fabricar software] (https://github.com/juniorsmartins/Artigos_Tecnologia/blob/ee42db56dfb1e12797611d5adb0d783c16c3f079/Projeto%20-%20Easy%20Closet/ARTIGO1_GestaoAgilDeProjetos.docx)
 
-# VISÃO DO PROJETO
+# 2. VISÃO DO PROJETO
 
-# ESTRUTURA ANALÍTICA DO PROJETO (EAP)
+# 3. ESTRUTURA ANALÍTICA DO PROJETO (EAP)
 
-# CRONOGRAMA DE RELEASES
+# 4. CRONOGRAMA DE RELEASES
 
-# TECNOLOGIAS
+# 5. TECNOLOGIAS
 
-# ARQUITETURA
+# 6. ARQUITETURA
 
-# UNIFIED MODELING LANGUAGE (UML)
+# 7. FUNCIONALIDADES
 
-# DIAGRAMA ENTIDADE RELACIONAMENTO (DER)
+# 8. BANCO DE DADOS
 
-# ENDPOINTS
+# 9. ENDPOINTS
 
-# LICENÇA
+# 10. LICENÇA
 
-# CONTATOS
+# 11. AUTORES E CONTATOS
 
-
-Em construção...
-
-A documentação começou a ser escrita aqui: https://github.com/juniorsmartins/Artigos_Tecnologia/tree/master/Projeto%20-%20Easy%20Closet 
-
-
+> Junior Martins - (65)99611-8288
 
