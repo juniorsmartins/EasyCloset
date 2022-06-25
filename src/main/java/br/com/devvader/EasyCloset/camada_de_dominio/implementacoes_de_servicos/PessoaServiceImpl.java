@@ -20,14 +20,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
 @Service
 public final class PessoaServiceImpl implements IPessoaService {
 
-    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -48,7 +46,6 @@ public final class PessoaServiceImpl implements IPessoaService {
     private PessoaDtoEntradaListar filtrosParaPesquisa;
     private Example exampleFiltro;
 
-    // ---------- MÉTODOS DE SERVIÇO ---------- //
     // ----- Cadastrar
     @Override
     public ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder) {
@@ -70,7 +67,6 @@ public final class PessoaServiceImpl implements IPessoaService {
         private void cadastrar() {
             pessoaSalva.getContato().setPessoa(pessoaSalva);
             pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-            pessoaSalva.getAuditoria().setPessoa(pessoaSalva);
             pessoaRepository.saveAndFlush(pessoaSalva);
         }
 
@@ -166,6 +162,5 @@ public final class PessoaServiceImpl implements IPessoaService {
             pessoaSalva.getEndereco().setLogradouro(pessoaDeEntrada.getEndereco().getLogradouro());
             pessoaSalva.getEndereco().setNumero(pessoaDeEntrada.getEndereco().getNumero());
             pessoaSalva.getEndereco().setComplemento(pessoaDeEntrada.getEndereco().getComplemento());
-            pessoaSalva.getAuditoria().setDataUltimaAtualizacao(LocalDateTime.now());
         }
 }
