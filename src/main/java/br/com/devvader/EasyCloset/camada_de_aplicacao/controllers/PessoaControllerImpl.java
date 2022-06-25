@@ -3,6 +3,7 @@ package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.portas.IPessoaController;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

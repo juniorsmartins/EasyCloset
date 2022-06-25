@@ -1,4 +1,4 @@
-package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers;
+package br.com.devvader.EasyCloset.camada_de_aplicacao.portas;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
