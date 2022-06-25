@@ -10,8 +10,8 @@ import java.io.Serializable;
 @Table(name = "contatos")
 @Data
 @NoArgsConstructor
-public final class Contato implements Serializable, IAuditoria
-{
+public final class Contato extends AbstractAuditingEntity implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id

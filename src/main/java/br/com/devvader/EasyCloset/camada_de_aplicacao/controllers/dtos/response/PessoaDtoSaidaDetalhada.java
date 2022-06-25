@@ -23,6 +23,5 @@ public final class PessoaDtoSaidaDetalhada {
         setCpf(pessoa.getCpf());
         setContato(new ContatoDtoSaida(pessoa.getContato()));
         setEndereco(new EnderecoDtoSaida(pessoa.getEndereco()));
-        setAuditoria(new AuditoriaDtoSaida(pessoa.getAuditoria()));
     }
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "pessoas")
 @Data
 @NoArgsConstructor
-public final class Pessoa implements Serializable, IAuditoria {
+public final class Pessoa extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
