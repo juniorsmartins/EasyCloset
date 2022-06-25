@@ -9,9 +9,9 @@ import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tr
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
-import br.com.devvader.EasyCloset.camada_de_recursos.repositories.ContatoRepository;
-import br.com.devvader.EasyCloset.camada_de_recursos.repositories.EnderecoRepository;
-import br.com.devvader.EasyCloset.camada_de_recursos.repositories.PessoaRepository;
+import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IContatoRepository;
+import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IEnderecoRepository;
+import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -29,11 +29,11 @@ public final class PessoaServiceImpl implements IPessoaService {
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private IPessoaRepository IPessoaRepository;
     @Autowired
-    private ContatoRepository contatoRepository;
+    private IContatoRepository IContatoRepository;
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    private IEnderecoRepository IEnderecoRepository;
     @Autowired
     private List<IPessoaRegrasDeNegocio> listaDeRegrasDeNegocio;
 
@@ -67,7 +67,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         private void cadastrar() {
             pessoaSalva.getContato().setPessoa(pessoaSalva);
             pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-            pessoaRepository.saveAndFlush(pessoaSalva);
+            IPessoaRepository.saveAndFlush(pessoaSalva);
         }
 
         private void converterEntidadeParaSaida() {
@@ -80,7 +80,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         filtrosParaPesquisa = pessoaDtoEntradaListar;
 
         criarExampleConfiguradoPorExampleMatcher();
-        listaDePessoasSalvas = pessoaRepository.findAll(exampleFiltro);
+        listaDePessoasSalvas = IPessoaRepository.findAll(exampleFiltro);
 
         if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getPessoaId() != null
                 || filtrosParaPesquisa.getCpf() != null)) {
@@ -106,7 +106,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
         private void buscarTodos() {
-            listaDePessoasSalvas = pessoaRepository.findAll();
+            listaDePessoasSalvas = IPessoaRepository.findAll();
         }
 
         private void converterEntidadeParaSaidaDetalhada() {
@@ -126,9 +126,9 @@ public final class PessoaServiceImpl implements IPessoaService {
     @Override
     public ResponseEntity<?> deletar(Long id) {
 
-        return pessoaRepository.findById(id)
+        return IPessoaRepository.findById(id)
                 .map(pessoa -> {
-                    pessoaRepository.delete(pessoa);
+                    IPessoaRepository.delete(pessoa);
                     buscarTodos();
                     converterListaEntidadesParaSaida();
                     return ResponseEntity.ok().body(listaDePessoasDeSaida);
@@ -140,7 +140,7 @@ public final class PessoaServiceImpl implements IPessoaService {
     public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
         pessoaDeEntrada = modelMapper.map(pessoaDtoEntradaAtualizar, PessoaDtoEntrada.class);
 
-        return pessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
+        return IPessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
                 .map(pessoa -> {
                     pessoaSalva = pessoa;
                     atualizarPessoa();

@@ -3,7 +3,7 @@ package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.r
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntrada;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RegraDeNegocioException;
-import br.com.devvader.EasyCloset.camada_de_recursos.repositories.PessoaRepository;
+import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public final class ValidarCpfUnico implements IPessoaRegrasDeNegocio {
 
     @Autowired
-    private PessoaRepository pessoaRepository;
+    private IPessoaRepository IPessoaRepository;
 
     @Override
     public void validar(PessoaDtoEntrada pessoaDtoEntrada) {
-        if (pessoaRepository.findByCpf(pessoaDtoEntrada.getCpf()).isPresent())
+        if (IPessoaRepository.findByCpf(pessoaDtoEntrada.getCpf()).isPresent())
             throw new RegraDeNegocioException(MensagensPadronizadas.CPF_JA_CADASTRADO);
     }
 }

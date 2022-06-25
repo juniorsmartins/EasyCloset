@@ -5,7 +5,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
-public interface Auditoria {
+public interface IAuditoria {
 
     @CreationTimestamp
     LocalDateTime dataCriacao = null;
