@@ -9,5 +9,4 @@ public class EasyClosetApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(EasyClosetApplication.class, args);
 	}
-
 }
