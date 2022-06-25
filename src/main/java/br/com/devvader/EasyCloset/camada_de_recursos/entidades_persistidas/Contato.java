@@ -8,14 +8,12 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "contatos")
-@NoArgsConstructor
 @Data
-public final class Contato implements Serializable
+@NoArgsConstructor
+public final class Contato implements Serializable, IAuditoria
 {
-    // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;
 
-    // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
     @Column(name = "pessoa_id")
     private Long pessoaId;
