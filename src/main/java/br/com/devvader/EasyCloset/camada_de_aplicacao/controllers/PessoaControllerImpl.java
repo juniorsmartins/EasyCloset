@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 /**
  * @author JuniorMartins
  * @version 1
@@ -23,7 +25,7 @@ public class PessoaControllerImpl implements IPessoaController {
     private IPessoaService iPessoaService;
 
     @Override
-    public ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<?> cadastrar(@Valid PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder) {
         return iPessoaService.cadastrar(pessoaDtoEntrada, uriBuilder);
     }
 
