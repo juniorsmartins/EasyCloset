@@ -19,6 +19,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.net.URI;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,30 +88,30 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .pessoaToPessoaDtoSaidaDetalhada(listaDePessoasSalvas.get(0)));
         }
 
-        return ResponseEntity.ok().body(mapStructPessoa.listaPessoaToListaPessoaDtoSaida(listaDePessoasSalvas)
-                .stream().unordered());
+        return ResponseEntity.ok().body(mapStructPessoa
+                .listaPessoaToListaPessoaDtoSaida(listaDePessoasSalvas)
+                .stream()
+                .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()));
     }
 
         private void criarExampleConfiguradoPorExampleMatcher() {
-            // ExampleMatcher - permite configurar condições para serem aplicadas nos filtros
             ExampleMatcher matcher = ExampleMatcher
                     .matching()
-                    .withIgnoreCase() // Ignore caixa alta ou baixa - quando String
+                    .withIgnoreCase()
                     .withIgnoreNullValues()
                     .withStringMatcher(ExampleMatcher
-                            .StringMatcher.STARTING); // permite encontrar palavras tipo Like com Containing
-            // Example - pega campos populados para criar filtros
+                            .StringMatcher.EXACT);
             exampleFiltro = Example.of(mapStructPessoa.pessoaDtoEntradaListarToPessoa(filtrosParaPesquisa), matcher);
-/*            exampleFiltro = Example.of(modelMapper.map(filtrosParaPesquisa, Pessoa.class), matcher);*/
         }
+
+
+
+
+
 
         private void buscarTodos() {
             listaDePessoasSalvas = iPessoaRepository.findAll();
         }
-
-/*        private void converterEntidadeParaSaidaDetalhada() {
-            pessoaDeSaidaDetalhada = modelMapper.map(pessoaSalva, PessoaDtoSaidaDetalhada.class);
-        }*/
 
         private void converterListaEntidadesParaSaida() {
 
@@ -120,6 +121,10 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
                     .toList();*/
         }
+
+
+
+
 
     // ----- Deletar
     @Override
