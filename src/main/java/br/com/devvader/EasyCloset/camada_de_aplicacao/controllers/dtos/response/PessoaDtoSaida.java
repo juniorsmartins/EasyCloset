@@ -1,31 +1,25 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-public final class PessoaDtoSaida {
-
+public final class PessoaDtoSaida
+{
     private Long pessoaId;
     private String nome;
     private String sobrenome;
     private String cpf;
-    private LocalDateTime dataDeCriacao;
-    private LocalDateTime dataDaUltimaModificacao;
 
     private ContatoDtoSaida contato;
     private EnderecoDtoSaida endereco;
 
-    public PessoaDtoSaida(Pessoa pessoa) {
-        setPessoaId(pessoa.getPessoaId());
-        setNome(pessoa.getNome());
-        setSobrenome(pessoa.getSobrenome());
-        setCpf(pessoa.getCpf());
-        setContato(new ContatoDtoSaida(pessoa.getContato()));
-        setEndereco(new EnderecoDtoSaida(pessoa.getEndereco()));
-    }
+    private LocalDateTime dataDeCriacao;
+    private LocalDateTime dataDaUltimaModificacao;
 }

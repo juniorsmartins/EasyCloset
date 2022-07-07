@@ -14,22 +14,17 @@ import javax.validation.Valid;
  * @version 1
  */
 
-@RestController
-@RequestMapping("/v1/pessoas")
 public interface IPessoaController {
 
     @PostMapping
-    @Transactional
-    ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder);
+    ResponseEntity<?> cadastrar(@RequestBody PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder);
 
     @GetMapping
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
 
     @DeleteMapping("/{id}")
-    @Transactional
     ResponseEntity<?> deletar(@PathVariable(name = "id") Long id);
 
     @PutMapping
-    @Transactional
     ResponseEntity<?> atualizar(@RequestBody @Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
 }

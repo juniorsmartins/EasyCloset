@@ -11,7 +11,7 @@ public final class ApiDeQuebraDeRegraDeNegocio {
     private String mensagem;
 
     public ApiDeQuebraDeRegraDeNegocio(String status, String mensagem) {
-        setStatus(status);
-        setMensagem(mensagem);
+/*        setStatus(status);
+        setMensagem(mensagem);*/
     }
 }

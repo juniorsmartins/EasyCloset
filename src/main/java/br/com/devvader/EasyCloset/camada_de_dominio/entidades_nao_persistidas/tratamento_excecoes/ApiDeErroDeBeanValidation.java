@@ -13,9 +13,9 @@ public final class ApiDeErroDeBeanValidation {
     private String nomeDoCampo;
 
     public ApiDeErroDeBeanValidation(String status, String mensagem, String anotacao, String nomeDoCampo) {
-        setStatus(status);
+/*        setStatus(status);
         setMensagem(mensagem);
         setAnotacao(anotacao);
-        setNomeDoCampo(nomeDoCampo);
+        setNomeDoCampo(nomeDoCampo);*/
     }
 }

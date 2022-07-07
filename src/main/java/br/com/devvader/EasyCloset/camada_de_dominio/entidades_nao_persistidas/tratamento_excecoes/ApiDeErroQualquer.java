@@ -11,7 +11,7 @@ public final class ApiDeErroQualquer {
     private String mensagem;
 
     public ApiDeErroQualquer(String status, String mensagem) {
-        setStatus(status);
-        setMensagem(mensagem);
+/*        setStatus(status);
+        setMensagem(mensagem);*/
     }
 }
