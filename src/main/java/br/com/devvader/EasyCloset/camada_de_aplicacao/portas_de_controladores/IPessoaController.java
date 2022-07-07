@@ -5,9 +5,6 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
 
 /**
  * @author JuniorMartins
@@ -17,7 +14,7 @@ import javax.validation.Valid;
 public interface IPessoaController {
 
     @PostMapping
-    ResponseEntity<?> cadastrar(@RequestBody PessoaDtoEntrada pessoaDtoEntrada, UriComponentsBuilder uriBuilder);
+    ResponseEntity<?> cadastrar(@RequestBody PessoaDtoEntrada pessoaDtoEntrada);
 
     @GetMapping
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
@@ -26,5 +23,5 @@ public interface IPessoaController {
     ResponseEntity<?> deletar(@PathVariable(name = "id") Long id);
 
     @PutMapping
-    ResponseEntity<?> atualizar(@RequestBody @Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
+    ResponseEntity<?> atualizar(@RequestBody PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
 }
