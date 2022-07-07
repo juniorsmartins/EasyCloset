@@ -1,13 +1,16 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "enderecos")
-@Data
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public final class Endereco extends AbstractAuditingEntity implements Serializable {
 
