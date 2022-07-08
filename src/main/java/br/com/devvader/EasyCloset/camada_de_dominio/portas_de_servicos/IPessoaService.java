@@ -11,4 +11,5 @@ public interface IPessoaService {
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
     ResponseEntity<?> deletar(Long id);
     ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
+    ResponseEntity<?> consultar(Long codigo);
 }

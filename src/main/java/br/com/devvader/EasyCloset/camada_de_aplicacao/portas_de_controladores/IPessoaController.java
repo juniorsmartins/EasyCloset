@@ -26,4 +26,7 @@ public interface IPessoaController {
 
     @PutMapping
     ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
+
+    @GetMapping("/{id}")
+    ResponseEntity<?> consultar(@PathVariable(name = "id") Long codigo);
 }

@@ -45,4 +45,9 @@ public class PessoaControllerImpl implements IPessoaController {
     public ResponseEntity<?> atualizar(@RequestBody @Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
         return iPessoaService.atualizar(pessoaDtoEntradaAtualizar);
     }
+
+    @Override
+    public ResponseEntity<?> consultar(Long codigo) {
+        return iPessoaService.consultar(codigo);
+    }
 }

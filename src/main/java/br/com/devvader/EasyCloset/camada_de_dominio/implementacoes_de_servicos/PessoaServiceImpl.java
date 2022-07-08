@@ -153,7 +153,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                 }).orElseThrow(() -> new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}"));
     }
 
-        private void atualizarPessoa() {
+    private void atualizarPessoa() {
             pessoaSalva.setNome(pessoaDeEntrada.getNome());
             pessoaSalva.setSobrenome(pessoaDeEntrada.getSobrenome());
             pessoaSalva.setCpf(pessoaDeEntrada.getCpf());
@@ -167,4 +167,15 @@ public final class PessoaServiceImpl implements IPessoaService {
             pessoaSalva.getEndereco().setNumero(pessoaDeEntrada.getEndereco().getNumero());
             pessoaSalva.getEndereco().setComplemento(pessoaDeEntrada.getEndereco().getComplemento());
         }
+
+
+    @Override
+    public ResponseEntity<?> consultar(Long codigo) {
+        return ResponseEntity.ok().body(
+                iPessoaRepository.findById(codigo)
+                        .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
+        );
+    }
 }
