@@ -6,6 +6,8 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author JuniorMartins
  * @version 1
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public interface IPessoaController {
 
     @PostMapping
-    ResponseEntity<?> cadastrar(@RequestBody PessoaDtoEntrada pessoaDtoEntrada);
+    ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada);
 
     @GetMapping
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);

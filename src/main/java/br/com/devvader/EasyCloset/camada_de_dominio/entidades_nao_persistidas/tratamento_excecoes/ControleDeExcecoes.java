@@ -54,5 +54,11 @@ public final class ControleDeExcecoes {
         return new ApiDeErroQualquer(HttpStatus.NOT_ACCEPTABLE.toString(), numberFormatException.getMessage());
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiDeErroQualquer filtrarExcecaoPorNullPointer(NullPointerException nullPointerException) {
+        return new ApiDeErroQualquer(HttpStatus.BAD_REQUEST.toString(), nullPointerException.getMessage());
+    }
+
 
 }
