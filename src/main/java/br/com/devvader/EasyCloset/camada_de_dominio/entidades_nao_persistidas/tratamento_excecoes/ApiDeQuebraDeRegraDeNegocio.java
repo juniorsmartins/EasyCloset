@@ -1,17 +1,14 @@
 package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 public final class ApiDeQuebraDeRegraDeNegocio {
 
     private String status;
     private String mensagem;
-
-    public ApiDeQuebraDeRegraDeNegocio(String status, String mensagem) {
-/*        setStatus(status);
-        setMensagem(mensagem);*/
-    }
 }

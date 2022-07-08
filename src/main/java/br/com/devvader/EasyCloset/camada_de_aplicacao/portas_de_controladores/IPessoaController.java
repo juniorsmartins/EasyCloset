@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public interface IPessoaController {
 
     @PostMapping
-    ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada);
+    ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada);
 
     @GetMapping
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
@@ -25,5 +25,5 @@ public interface IPessoaController {
     ResponseEntity<?> deletar(@PathVariable(name = "id") Long id);
 
     @PutMapping
-    ResponseEntity<?> atualizar(@RequestBody PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
+    ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
 }

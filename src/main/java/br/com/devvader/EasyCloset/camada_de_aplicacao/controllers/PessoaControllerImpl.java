@@ -7,6 +7,8 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.portas_de_controladores.IP
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +27,7 @@ public class PessoaControllerImpl implements IPessoaController {
     private IPessoaService iPessoaService;
 
     @Override
-    public ResponseEntity<?> cadastrar(@Valid PessoaDtoEntrada pessoaDtoEntrada) {
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid PessoaDtoEntrada pessoaDtoEntrada) {
         return iPessoaService.cadastrar(pessoaDtoEntrada);
     }
 
@@ -40,7 +42,7 @@ public class PessoaControllerImpl implements IPessoaController {
     }
 
     @Override
-    public ResponseEntity<?> atualizar(@Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
+    public ResponseEntity<?> atualizar(@RequestBody @Valid PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
         return iPessoaService.atualizar(pessoaDtoEntradaAtualizar);
     }
 }

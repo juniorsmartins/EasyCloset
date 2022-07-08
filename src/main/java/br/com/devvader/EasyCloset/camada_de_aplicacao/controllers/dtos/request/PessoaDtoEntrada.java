@@ -32,11 +32,11 @@ public final class PessoaDtoEntrada {
     @CPF(message = "{campo.cpf.valido}")
     private String cpf;
 
-    @NotNull(message = "{campo.contato.obrigatorio}")
     @Valid
+    @NotNull(message = "{campo.contato.obrigatorio}")
     private ContatoDtoEntrada contato;
 
-    @NotNull(message = "{campo.endereco.obrigatorio}")
     @Valid
+    @NotNull(message = "{campo.endereco.obrigatorio}")
     private EnderecoDtoEntrada endereco;
 }

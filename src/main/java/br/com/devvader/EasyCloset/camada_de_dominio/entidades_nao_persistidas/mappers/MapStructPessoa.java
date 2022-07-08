@@ -6,9 +6,8 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaidaDetalhada;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+
 import java.util.List;
 
 @Mapper(componentModel = "spring")

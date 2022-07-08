@@ -1,6 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
@@ -29,12 +30,16 @@ public final class PessoaServiceImpl implements IPessoaService {
 
     @Autowired
     private IPessoaRepository iPessoaRepository;
+
     @Autowired
     private IContatoRepository iContatoRepository;
+
     @Autowired
     private IEnderecoRepository iEnderecoRepository;
+
     @Autowired
     private MapStructPessoa mapStructPessoa;
+
     @Autowired
     private List<IPessoaRegrasDeNegocio> listaDeRegrasDeNegocio;
 
@@ -57,7 +62,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                 .map(MapStructPessoa.INSTANCE::converterPessoaDtoEntradaParaPessoa)
                 .map(pes -> cadastrarPessoa(pes))
                 .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
-                .orElseThrow(() -> new NullPointerException(MensagensPadronizadas.EXCECAO_NULL_POINTER));
+                .orElseThrow();
         return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getPessoaId())).body(pessoaDtoDeSaida);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,4 @@ public final class ControleDeExcecoes {
     public ApiDeErroQualquer filtrarExcecaoPorNullPointer(NullPointerException nullPointerException) {
         return new ApiDeErroQualquer(HttpStatus.BAD_REQUEST.toString(), nullPointerException.getMessage());
     }
-
-
 }
