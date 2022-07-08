@@ -1,7 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,8 +16,9 @@ public final class Contato extends AbstractAuditingEntity implements Serializabl
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "pessoa_id")
-    private Long pessoaId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "contato_id", nullable = false, updatable = false)
+    private Long contatoId;
 
     @Column(name = "celular", length = 25, nullable = false)
     private String celular;
@@ -27,7 +27,6 @@ public final class Contato extends AbstractAuditingEntity implements Serializabl
     private String email;
 
     @OneToOne
-    @MapsId
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 }

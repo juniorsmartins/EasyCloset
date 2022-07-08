@@ -18,6 +18,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
@@ -54,25 +56,19 @@ public final class PessoaServiceImpl implements IPessoaService {
         listaDeRegrasDeNegocio.forEach(regra -> regra.validar(pessoaDtoEntrada));
 
         final var pessoaDtoDeSaida = Optional.of(pessoaDtoEntrada)
-                .map(mapStructPessoa::pessoaDtoEntradaToPessoa)
+                .map(MapStructPessoa.INSTANCE::converterPessoaDtoEntradaParaPessoa)
                 .map(pes -> cadastrarPessoa(pes))
-                .map(mapStructPessoa::pessoaToPessoaDtoSaida)
+                .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
                 .orElseThrow();
         return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getPessoaId())).body(pessoaDtoDeSaida);
     }
 
         private Pessoa cadastrarPessoa(Pessoa pessoa) {
             var pessoaSalva = iPessoaRepository.save(pessoa);
-/*            pessoaSalva.getContato().setPessoa(pessoaSalva);
+            pessoaSalva.getContato().setPessoa(pessoaSalva);
             pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-            iContatoRepository.save(pessoa.getContato());
-            iEnderecoRepository.save(pessoa.getEndereco());*/
-            return pessoaSalva;
+            return iPessoaRepository.save(pessoaSalva);
         }
-
-/*        private void converterEntidadeParaSaida() {
-            pessoaDeSaida = MapStructPessoa.INSTANCE.converterEntityParaPessoaDtoSaida(pessoaSalva);
-        }*/
 
     // ----- Listar
     @Override
@@ -84,14 +80,14 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getPessoaId() != null
                 || filtrosParaPesquisa.getCpf() != null)) {
-            return ResponseEntity.ok().body(mapStructPessoa
-                    .pessoaToPessoaDtoSaidaDetalhada(listaDePessoasSalvas.get(0)));
+            return ResponseEntity.ok().body(MapStructPessoa.INSTANCE
+                    .converterPessoaParaPessoaDtoSaidaDetalhada(listaDePessoasSalvas.get(0)));
         }
 
-        return ResponseEntity.ok().body(mapStructPessoa
-                .listaPessoaToListaPessoaDtoSaida(listaDePessoasSalvas)
-                .stream()
-                .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()));
+        return ResponseEntity.ok().body(MapStructPessoa.INSTANCE
+                        .converterListaDePessoasParaListaDePessoasDtoSaida(listaDePessoasSalvas)
+                        .stream()
+                        .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()));
     }
 
         private void criarExampleConfiguradoPorExampleMatcher() {
@@ -101,7 +97,8 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .withIgnoreNullValues()
                     .withStringMatcher(ExampleMatcher
                             .StringMatcher.EXACT);
-            exampleFiltro = Example.of(mapStructPessoa.pessoaDtoEntradaListarToPessoa(filtrosParaPesquisa), matcher);
+            exampleFiltro = Example.of(MapStructPessoa.INSTANCE
+                    .converterPessoaDtoEntradaListarParaPessoa(filtrosParaPesquisa), matcher);
         }
 
 

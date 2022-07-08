@@ -1,7 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,8 +16,9 @@ public final class Endereco extends AbstractAuditingEntity implements Serializab
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "pessoa_id")
-    private Long pessoaId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "endereco_id", nullable = false, updatable = false)
+    private Long enderecoId;
 
     @Column(name = "cep", length = 9, nullable = false)
     private String cep;
@@ -42,7 +42,6 @@ public final class Endereco extends AbstractAuditingEntity implements Serializab
     private String complemento;
 
     @OneToOne
-    @MapsId
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 }

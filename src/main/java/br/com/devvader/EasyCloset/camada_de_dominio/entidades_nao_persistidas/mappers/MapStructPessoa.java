@@ -7,22 +7,20 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-
 import java.util.List;
-import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface MapStructPessoa {
 
     MapStructPessoa INSTANCE = Mappers.getMapper(MapStructPessoa.class);
 
-    @Mapping(source = "pessoaId", target = "contato.pessoaId")
-    @Mapping(source = "pessoaId", target = "endereco.pessoaId")
-    Pessoa pessoaDtoEntradaToPessoa(PessoaDtoEntrada pessoaDtoEntrada);
-    PessoaDtoSaida pessoaToPessoaDtoSaida(Pessoa pessoa);
+    Pessoa converterPessoaDtoEntradaParaPessoa(PessoaDtoEntrada pessoaDtoEntrada);
+    PessoaDtoSaida converterPessoaParaPessoaDtoSaida(Pessoa pessoa);
 
-    Pessoa pessoaDtoEntradaListarToPessoa(PessoaDtoEntradaListar pessoaDtoEntradaListar);
-    PessoaDtoSaidaDetalhada pessoaToPessoaDtoSaidaDetalhada(Pessoa pessoa);
-    List<PessoaDtoSaida> listaPessoaToListaPessoaDtoSaida(List<Pessoa> listaPessoas);
+
+    Pessoa converterPessoaDtoEntradaListarParaPessoa(PessoaDtoEntradaListar pessoaDtoEntradaListar);
+    PessoaDtoSaidaDetalhada converterPessoaParaPessoaDtoSaidaDetalhada(Pessoa pessoa);
+    List<PessoaDtoSaida> converterListaDePessoasParaListaDePessoasDtoSaida(List<Pessoa> listaPessoas);
 }

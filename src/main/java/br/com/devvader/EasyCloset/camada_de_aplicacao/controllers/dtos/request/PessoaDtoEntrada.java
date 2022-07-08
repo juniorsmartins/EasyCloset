@@ -1,15 +1,17 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public final class PessoaDtoEntrada {
 

@@ -1,7 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -31,10 +30,8 @@ public final class Pessoa extends AbstractAuditingEntity implements Serializable
     private String cpf;
 
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
     private Contato contato;
 
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
     private Endereco endereco;
 }
