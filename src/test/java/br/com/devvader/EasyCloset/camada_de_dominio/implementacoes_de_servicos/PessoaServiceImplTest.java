@@ -7,13 +7,21 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.mappers.MapStructPessoa;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Optional;
 
 @SpringBootTest
 class PessoaServiceImplTest {
@@ -42,7 +50,10 @@ class PessoaServiceImplTest {
     private MapStructPessoa mapStructPessoa;
 
     private PessoaDtoEntrada pessoaDeEntrada;
+    private Optional<Pessoa> optionalPessoa;
     private PessoaDtoSaida pessoaDeSaida;
+    private Contato contato;
+    private Endereco endereco;
 
     @BeforeEach
     void setUp() {
@@ -59,7 +70,28 @@ class PessoaServiceImplTest {
     }
 
     @Test
-    void consultar() {
+    void consultarPorId_Positivo() {
+        Mockito.when(iPessoaRepository.findById(Mockito.anyLong())).thenReturn(optionalPessoa);
+        ResponseEntity<?> pessoaDeSaida = pessoaService.consultar(1L);
+
+        Assertions.assertNotNull(pessoaDeSaida);
+        Assertions.assertEquals(PessoaDtoSaida.class, pessoaDeSaida.getBody().getClass());
+
+        Assertions.assertEquals(PESSOA_ID, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getPessoaId());
+        Assertions.assertEquals(NOME, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getNome());
+        Assertions.assertEquals(SOBRENOME, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getSobrenome());
+        Assertions.assertEquals(CPF, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getCpf());
+
+        Assertions.assertEquals(CELULAR, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getContato().getCelular());
+        Assertions.assertEquals(EMAIL, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getContato().getEmail());
+
+        Assertions.assertEquals(CEP, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getCep());
+        Assertions.assertEquals(ESTADO, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getEstado());
+        Assertions.assertEquals(CIDADE, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getCidade());
+        Assertions.assertEquals(BAIRRO, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getBairro());
+        Assertions.assertEquals(LOGRADOURO, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getLogradouro());
+        Assertions.assertEquals(NUMERO, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getNumero());
+        Assertions.assertEquals(COMPLEMENTO, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getEndereco().getComplemento());
     }
 
     @Test
@@ -90,6 +122,28 @@ class PessoaServiceImplTest {
                         .complemento(COMPLEMENTO)
                         .build())
                 .build();
+
+        optionalPessoa = Optional.of(Pessoa.builder()
+                .pessoaId(PESSOA_ID)
+                .nome(NOME)
+                .sobrenome(SOBRENOME)
+                .cpf(CPF)
+                .contato(Contato.builder()
+                        .contatoId(1L)
+                        .celular(CELULAR)
+                        .email(EMAIL)
+                        .build())
+                .endereco(Endereco.builder()
+                        .enderecoId(1L)
+                        .cep(CEP)
+                        .estado(ESTADO)
+                        .cidade(CIDADE)
+                        .bairro(BAIRRO)
+                        .logradouro(LOGRADOURO)
+                        .numero(NUMERO)
+                        .complemento(COMPLEMENTO)
+                        .build())
+                .build());
 
         pessoaDeSaida = PessoaDtoSaida.builder()
                 .pessoaId(PESSOA_ID)
