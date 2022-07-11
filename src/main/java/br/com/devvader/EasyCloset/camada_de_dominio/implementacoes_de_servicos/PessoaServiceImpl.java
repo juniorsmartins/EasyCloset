@@ -24,6 +24,7 @@ import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public final class PessoaServiceImpl implements IPessoaService {
@@ -104,27 +105,16 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .converterPessoaDtoEntradaListarParaPessoa(filtrosParaPesquisa), matcher);
         }
 
-
-
-
-
-
-        private void buscarTodos() {
-            listaDePessoasSalvas = iPessoaRepository.findAll();
-        }
-
-        private void converterListaEntidadesParaSaida() {
-
-/*            listaDePessoasDeSaida = listaDePessoasSalvas
-                    .stream()
-                    .map(PessoaDtoSaida::new)
-                    .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
-                    .toList();*/
-        }
-
-
-
-
+    // ----- Consultar
+    @Override
+    public ResponseEntity<?> consultar(Long codigo) {
+        return ResponseEntity.ok().body(
+                iPessoaRepository.findById(codigo)
+                        .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(
+                                MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
+        );
+    }
 
     // ----- Deletar
     @Override
@@ -133,11 +123,16 @@ public final class PessoaServiceImpl implements IPessoaService {
         return iPessoaRepository.findById(id)
                 .map(pessoa -> {
                     iPessoaRepository.delete(pessoa);
-                    buscarTodos();
-                    converterListaEntidadesParaSaida();
+                    listaDePessoasDeSaida = iPessoaRepository.findAll()
+                            .stream()
+                            .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
+                            .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()).toList();
                     return ResponseEntity.ok().body(listaDePessoasDeSaida);
                 }).orElseThrow(() -> new RecursoNaoEncontradoException("{entidade.pessoa.nao-encontrada}"));
     }
+
+
+
 
     // ----- Atualizar
     @Override
@@ -169,13 +164,5 @@ public final class PessoaServiceImpl implements IPessoaService {
         }
 
 
-    @Override
-    public ResponseEntity<?> consultar(Long codigo) {
-        return ResponseEntity.ok().body(
-                iPessoaRepository.findById(codigo)
-                        .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
-                        .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
-        );
-    }
+
 }
