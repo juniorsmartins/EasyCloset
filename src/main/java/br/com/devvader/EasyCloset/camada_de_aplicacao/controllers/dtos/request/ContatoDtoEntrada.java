@@ -1,15 +1,15 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@Builder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public final class ContatoDtoEntrada {

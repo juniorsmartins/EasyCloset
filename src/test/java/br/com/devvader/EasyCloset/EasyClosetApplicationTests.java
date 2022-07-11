@@ -9,5 +9,4 @@ class EasyClosetApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
