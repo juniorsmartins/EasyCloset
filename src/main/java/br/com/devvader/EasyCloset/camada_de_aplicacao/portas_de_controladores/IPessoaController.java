@@ -21,12 +21,12 @@ public interface IPessoaController {
     @GetMapping
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
 
+    @GetMapping("/{id}")
+    ResponseEntity<?> consultar(@PathVariable(name = "id") Long codigo);
+
     @DeleteMapping("/{id}")
     ResponseEntity<?> deletar(@PathVariable(name = "id") Long id);
 
     @PutMapping
     ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
-
-    @GetMapping("/{id}")
-    ResponseEntity<?> consultar(@PathVariable(name = "id") Long codigo);
 }

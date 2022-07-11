@@ -9,7 +9,7 @@ public interface IPessoaService {
 
     ResponseEntity<?> cadastrar(PessoaDtoEntrada pessoaDtoEntrada);
     ResponseEntity<?> listar(PessoaDtoEntradaListar pessoaDtoEntradaListar);
+    ResponseEntity<?> consultar(Long codigo);
     ResponseEntity<?> deletar(Long id);
     ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar);
-    ResponseEntity<?> consultar(Long codigo);
 }
