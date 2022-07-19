@@ -119,6 +119,8 @@ public final class PessoaServiceImpl implements IPessoaService {
     @Override
     public ResponseEntity<?> atualizar(PessoaDtoEntradaAtualizar pessoaDtoEntradaAtualizar) {
 
+        // criar pattern de regras de negócio
+
         return iPessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
                 .map(pessoa -> {
                     pessoaPraAtualizar = MapStructPessoa.INSTANCE
