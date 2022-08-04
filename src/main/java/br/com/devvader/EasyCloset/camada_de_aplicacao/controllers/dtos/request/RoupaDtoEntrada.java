@@ -35,8 +35,9 @@ public final class RoupaDtoEntrada {
     @PositiveOrZero
     private TamanhoEnum tamanho;
 
+    // parei aqui - Falta construir CompraDtoEntrada e CompraDtoSaida e MapStruct deles.
     @NotBlank
-    private CompraEntity compraEntity;
+    private CompraEntity compra;
 
     @NotNull
     @NotEmpty

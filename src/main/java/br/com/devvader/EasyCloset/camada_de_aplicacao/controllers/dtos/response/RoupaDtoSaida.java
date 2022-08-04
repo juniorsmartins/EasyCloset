@@ -18,6 +18,6 @@ public final class RoupaDtoSaida {
     private TecidoEnum tecido;
     private CoresEnum corPrincipal;
     private TamanhoEnum tamanho;
-    private CompraEntity compraEntity;
+    private CompraEntity compra;
     private Long pessoaId;
 }

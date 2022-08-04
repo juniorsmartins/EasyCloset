@@ -45,7 +45,7 @@ public final class RoupaEntity implements Serializable {
     private TamanhoEnum tamanho;
 
     @OneToOne(mappedBy = "roupa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    private CompraEntity compraEntity;
+    private CompraEntity compra;
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
