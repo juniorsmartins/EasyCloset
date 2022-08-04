@@ -26,8 +26,10 @@ public final class CompraEntity implements Serializable {
     private Long id;
 
     @Column(name = "tipo_pgto")
+    @Enumerated(EnumType.STRING)
     private TipoPgtoEnum tipoPgto;
     @Column(name = "forma_pgto")
+    @Enumerated(EnumType.STRING)
     private FormaPgtoEnum formaPgto;
     @Column(name = "preco")
     private BigDecimal preco;
