@@ -2,7 +2,7 @@ package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.c
 
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IContatoRepository;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IEnderecoRepository;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
@@ -26,8 +26,8 @@ public class AmbienteTestesConfig {
 
     @Bean
     public void startDB() {
-        var pessoaTest1 = Pessoa.builder()
-                .pessoaId(null)
+        var pessoaTest1 = PessoaEntity.builder()
+                .id(null)
                 .nome("Robert")
                 .sobrenome("C. Martin")
                 .cpf("590.889.470-23")
@@ -52,8 +52,8 @@ public class AmbienteTestesConfig {
                 .pessoa(pessoaTest1)
                 .build();
 
-        var pessoaTest2 = Pessoa.builder()
-                .pessoaId(null)
+        var pessoaTest2 = PessoaEntity.builder()
+                .id(null)
                 .nome("Carol")
                 .sobrenome("Dweck")
                 .cpf("256.327.270-09")

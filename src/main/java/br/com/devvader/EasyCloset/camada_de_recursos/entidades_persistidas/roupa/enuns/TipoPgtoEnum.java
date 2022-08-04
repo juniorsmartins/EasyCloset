@@ -1,4 +1,4 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns;
 
 public enum TipoPgtoEnum {
 

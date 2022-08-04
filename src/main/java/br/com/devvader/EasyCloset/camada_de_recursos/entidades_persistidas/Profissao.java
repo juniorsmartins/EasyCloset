@@ -23,7 +23,7 @@ public final class Profissao implements Serializable {
     // ---------- ATRIBUTOS DE INSTÂNCIA ---------- //
     @Id
     @OneToOne()
-    private Pessoa pessoa;
+    private PessoaEntity pessoa;
 
     @Column(name = "cargo", length = 100, nullable = false)
     private String cargo;

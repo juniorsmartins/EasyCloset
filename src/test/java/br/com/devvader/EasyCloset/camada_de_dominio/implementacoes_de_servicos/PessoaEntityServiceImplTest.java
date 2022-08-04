@@ -7,13 +7,12 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.ContatoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.EnderecoDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.mappers.MapStructPessoa;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +22,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -31,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-class PessoaServiceImplTest {
+class PessoaEntityServiceImplTest {
 
     public static final long PESSOA_ID = 1L;
     public static final String NOME = "Ken";
@@ -76,9 +74,9 @@ class PessoaServiceImplTest {
 
     private PessoaDtoEntrada pessoaDeEntrada;
     private PessoaDtoEntradaListar pessoaDtoEntradaListar;
-    private Optional<Pessoa> optionalPessoa1;
-    private Pessoa pessoa;
-    private Pessoa pessoa1;
+    private Optional<PessoaEntity> optionalPessoa1;
+    private PessoaEntity pessoa;
+    private PessoaEntity pessoa1;
     private PessoaDtoSaida pessoaDeSaida;
     private PessoaDtoSaida pessoaDeSaida2;
     private Contato contato;
@@ -117,7 +115,7 @@ class PessoaServiceImplTest {
     void listar() {
         Mockito.when(iPessoaRepository.findAll()).thenReturn(List.of(pessoa, pessoa1));
 
-        List<Pessoa> listaDePessoasSalvas = iPessoaRepository.findAll();
+        List<PessoaEntity> listaDePessoasSalvas = iPessoaRepository.findAll();
 
         // precisa criar o pessoaDtoEntradaListar
         ResponseEntity<?> listaDePessoasDeSaida = pessoaService.listar(pessoaDtoEntradaListar);
@@ -207,8 +205,8 @@ class PessoaServiceImplTest {
                 .endereco(null)
                 .build();
 
-        optionalPessoa1 = Optional.of(Pessoa.builder()
-                .pessoaId(PESSOA1_ID)
+        optionalPessoa1 = Optional.of(PessoaEntity.builder()
+                .id(PESSOA1_ID)
                 .nome(NOME1)
                 .sobrenome(SOBRENOME1)
                 .cpf(CPF1)
@@ -229,8 +227,8 @@ class PessoaServiceImplTest {
                         .build())
                 .build());
 
-        pessoa = Pessoa.builder()
-                .pessoaId(PESSOA_ID)
+        pessoa = PessoaEntity.builder()
+                .id(PESSOA_ID)
                 .nome(NOME)
                 .sobrenome(SOBRENOME)
                 .cpf(CPF)
@@ -251,8 +249,8 @@ class PessoaServiceImplTest {
                         .build())
                 .build();
 
-        pessoa1 = Pessoa.builder()
-                .pessoaId(PESSOA1_ID)
+        pessoa1 = PessoaEntity.builder()
+                .id(PESSOA1_ID)
                 .nome(NOME1)
                 .sobrenome(SOBRENOME1)
                 .cpf(CPF1)

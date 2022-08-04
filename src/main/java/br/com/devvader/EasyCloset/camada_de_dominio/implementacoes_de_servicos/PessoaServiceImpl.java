@@ -9,7 +9,7 @@ import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.re
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Pessoa;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -31,8 +31,8 @@ public final class PessoaServiceImpl implements IPessoaService {
     @Autowired
     private List<IPessoaRegrasDeNegocio> listaDeRegrasDeNegocio;
 
-    private Pessoa pessoaPraAtualizar;
-    private List<Pessoa> listaDePessoasSalvas;
+    private PessoaEntity pessoaPraAtualizar;
+    private List<PessoaEntity> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
     private PessoaDtoEntradaListar filtrosParaPesquisa;
     private Example exampleFiltro;
@@ -51,7 +51,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getPessoaId())).body(pessoaDtoDeSaida);
     }
 
-        private Pessoa cadastrarPessoa(Pessoa pessoa) {
+        private PessoaEntity cadastrarPessoa(PessoaEntity pessoa) {
             var pessoaSalva = iPessoaRepository.save(pessoa);
             pessoaSalva.getContato().setPessoa(pessoaSalva);
             pessoaSalva.getEndereco().setPessoa(pessoaSalva);

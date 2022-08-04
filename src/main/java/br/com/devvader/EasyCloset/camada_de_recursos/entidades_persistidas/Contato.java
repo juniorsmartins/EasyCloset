@@ -29,5 +29,5 @@ public final class Contato extends AbstractAuditingEntity implements Serializabl
 
     @OneToOne
     @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    private PessoaEntity pessoa;
 }

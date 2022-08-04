@@ -44,5 +44,5 @@ public final class Endereco extends AbstractAuditingEntity implements Serializab
 
     @OneToOne
     @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    private PessoaEntity pessoa;
 }
