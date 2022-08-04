@@ -5,17 +5,15 @@ import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TamanhoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TecidoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPecaEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Builder
-@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public final class RoupaDtoSaida {
 
+    private Long id;
     private TipoPecaEnum tipoPeca;
     private TecidoEnum tecido;
     private CoresEnum corPrincipal;

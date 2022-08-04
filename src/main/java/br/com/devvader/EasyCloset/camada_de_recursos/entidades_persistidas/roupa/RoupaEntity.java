@@ -31,12 +31,15 @@ public final class RoupaEntity implements Serializable {
     @Column(name = "tipo_peca")
     @Enumerated(EnumType.STRING)
     private TipoPecaEnum tipoPeca;
+
     @Column(name = "tecido")
     @Enumerated(EnumType.STRING)
     private TecidoEnum tecido;
+
     @Column(name = "cor_principal")
     @Enumerated(EnumType.STRING)
     private CoresEnum corPrincipal;
+
     @Column(name = "tamanho")
     @Enumerated(EnumType.STRING)
     private TamanhoEnum tamanho;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
@@ -20,6 +21,7 @@ public class RoupaController {
     IRoupaService iRoupaService;
 
     @PostMapping
+    @Transactional
     ResponseEntity<?> cadastrar(@RequestBody @Valid RoupaDtoEntrada roupaDtoEntrada) {
         return iRoupaService.cadastrar(roupaDtoEntrada);
     }
@@ -35,11 +37,13 @@ public class RoupaController {
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     ResponseEntity<?> deletar(@PathVariable(name = "id") Long id) {
         return iRoupaService.deletar(id);
     }
 
     @PutMapping("/{id}")
+    @Transactional
     ResponseEntity<?> atualizar(@PathVariable(name = "id") Long id, @RequestBody @Valid RoupaDtoEntrada roupaDtoEntrada) {
         return iRoupaService.atualizar(id, roupaDtoEntrada);
     }
