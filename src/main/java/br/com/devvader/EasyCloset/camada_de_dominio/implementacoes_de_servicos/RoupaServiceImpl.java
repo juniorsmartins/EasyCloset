@@ -84,6 +84,15 @@ public final class RoupaServiceImpl implements IRoupaService {
     // ----- Atualizar
     @Override
     public ResponseEntity<?> atualizar(Long id, RoupaDtoEntrada roupaDtoEntrada) {
-        return null;
+        return ResponseEntity
+                .ok()
+                .body(iRoupaRepository.findById(id)
+                        .map(roupaDoDatabase -> {
+                            var roupaAtualizada = modelMapper.map(roupaDtoEntrada, RoupaEntity.class);
+                            roupaAtualizada.setRoupaId(roupaDoDatabase.getRoupaId());
+                            roupaAtualizada.getCompra().setRoupa(roupaAtualizada);
+                            return iRoupaRepository.saveAndFlush(roupaAtualizada);
+                        }).map(roupaAtualizadaSalva -> modelMapper.map(roupaAtualizadaSalva, RoupaDtoSaida.class))
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO)));
     }
 }
