@@ -14,11 +14,11 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public final class RoupaDtoSaida {
 
-    private Long id;
+    private Long roupaId;
     private TipoPecaEnum tipoPeca;
     private TecidoEnum tecido;
     private CoresEnum corPrincipal;
     private TamanhoEnum tamanho;
-    private CompraDtoSaida compra;
-    private Long pessoa;
+    private CompraDtoSaida compraId;
+    private Long pessoaId;
 }

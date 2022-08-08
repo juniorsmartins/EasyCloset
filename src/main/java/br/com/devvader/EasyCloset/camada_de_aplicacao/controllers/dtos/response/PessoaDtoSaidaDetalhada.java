@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public final class PessoaDtoSaidaDetalhada
 {
-    private Long id;
+    private Long pessoaId;
     private String nome;
     private String sobrenome;
     private String cpf;

@@ -1,5 +1,8 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa;
 
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.AbstractAuditingEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.ContatoEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.EnderecoEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.RoupaEntity;
 import lombok.*;
 
@@ -21,7 +24,7 @@ public final class PessoaEntity extends AbstractAuditingEntity implements Serial
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    private Long pessoaId;
 
     @Column(name = "nome", length = 25, nullable = false)
     private String nome;
@@ -33,11 +36,11 @@ public final class PessoaEntity extends AbstractAuditingEntity implements Serial
     private String cpf;
 
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Contato contato;
+    private ContatoEntity contato;
 
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Endereco endereco;
+    private EnderecoEntity endereco;
 
-    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pessoaId", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<RoupaEntity> roupas;
 }

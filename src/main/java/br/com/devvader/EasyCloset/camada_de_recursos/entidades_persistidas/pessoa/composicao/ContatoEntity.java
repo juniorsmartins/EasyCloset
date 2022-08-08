@@ -1,5 +1,7 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao;
 
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.AbstractAuditingEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Contato extends AbstractAuditingEntity implements Serializable {
+public final class ContatoEntity extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

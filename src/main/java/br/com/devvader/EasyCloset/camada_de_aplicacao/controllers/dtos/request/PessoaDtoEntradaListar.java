@@ -1,8 +1,8 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.AbstractAuditingEntity;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.ContatoEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.EnderecoEntity;
 import lombok.*;
 
 
@@ -13,12 +13,12 @@ import lombok.*;
 @AllArgsConstructor
 public final class PessoaDtoEntradaListar {
 
-    private String id;
+    private String pessoaId;
     private String nome;
     private String sobrenome;
     private String cpf;
 
-    private Contato contato = null;
-    private Endereco endereco = null;
+    private ContatoEntity contato = null;
+    private EnderecoEntity endereco = null;
     private AbstractAuditingEntity AbstractAuditingEntity = null;
 }

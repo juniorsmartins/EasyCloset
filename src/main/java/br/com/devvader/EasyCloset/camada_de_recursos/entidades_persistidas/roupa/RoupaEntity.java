@@ -1,6 +1,6 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.CoresEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TamanhoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TecidoEnum;
@@ -24,7 +24,7 @@ public final class RoupaEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    private Long roupaId;
 
     @Column(name = "tipo_peca")
     @Enumerated(EnumType.STRING)
@@ -42,10 +42,10 @@ public final class RoupaEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private TamanhoEnum tamanho;
 
-    @OneToOne(mappedBy = "roupa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-    private CompraEntity compra;
+    @OneToOne(mappedBy = "roupaId", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+    private CompraEntity compraId;
 
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
-    private PessoaEntity pessoa;
+    private PessoaEntity pessoaId;
 }

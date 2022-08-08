@@ -1,5 +1,7 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao;
 
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.AbstractAuditingEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public final class Endereco extends AbstractAuditingEntity implements Serializable {
+public final class EnderecoEntity extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +41,7 @@ public final class Endereco extends AbstractAuditingEntity implements Serializab
     @Column(name = "numero")
     private int numero;
 
-    @Column(name = "complemento")
+    @Column(name = "complemento", length = 200, nullable = true)
     private String complemento;
 
     @OneToOne

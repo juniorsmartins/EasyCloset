@@ -1,7 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_recursos.repositories;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.ContatoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IContatoRepository extends JpaRepository<Contato, Long> {
+public interface IContatoRepository extends JpaRepository<ContatoEntity, Long> {
 }

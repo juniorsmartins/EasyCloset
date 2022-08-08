@@ -2,8 +2,8 @@ package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roup
 
 public enum TipoPgtoEnum {
 
-    A_VISTA("À vista"),
-    A_PRAZO("A prazo");
+    A_VISTA("à vista"),
+    A_PRAZO("a prazo");
 
     private String valor;
 

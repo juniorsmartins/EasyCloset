@@ -1,5 +1,6 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao;
 
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode
-public final class Profissao implements Serializable {
+public final class ProfissaoEntity implements Serializable {
 
     // ---------- ATRIBUTOS DE CLASSE ---------- //
     private static final long serialVersionUID = 1L;

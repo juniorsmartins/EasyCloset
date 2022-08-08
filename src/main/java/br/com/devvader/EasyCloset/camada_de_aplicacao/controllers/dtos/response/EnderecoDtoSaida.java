@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public final class EnderecoDtoSaida
 {
+    private Long enderecoId;
     private String cep;
     private String estado;
     private String cidade;

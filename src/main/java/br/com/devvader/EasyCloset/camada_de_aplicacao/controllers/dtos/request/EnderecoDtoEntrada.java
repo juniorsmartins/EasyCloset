@@ -42,5 +42,6 @@ public final class EnderecoDtoEntrada {
     @PositiveOrZero(message = "{campo.numero.positivo-zero}")
     private int numero;
 
+    @Length(max = 200)
     private String complemento;
 }

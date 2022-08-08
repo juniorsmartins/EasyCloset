@@ -1,8 +1,8 @@
 package br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.configuracoes;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Contato;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.Endereco;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.ContatoEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.composicao.EnderecoEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IContatoRepository;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IEnderecoRepository;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
@@ -27,20 +27,20 @@ public class AmbienteTestesConfig {
     @Bean
     public void startDB() {
         var pessoaTest1 = PessoaEntity.builder()
-                .id(null)
+                .pessoaId(null)
                 .nome("Robert")
                 .sobrenome("C. Martin")
                 .cpf("590.889.470-23")
                 .build();
 
-        var contatoTest1 = Contato.builder()
+        var contatoTest1 = ContatoEntity.builder()
                 .contatoId(null)
                 .celular("(81)99988-8811")
                 .email("robert.martin@yahoo.com")
                 .pessoa(pessoaTest1)
                 .build();
 
-        var enderecoTest1 = Endereco.builder()
+        var enderecoTest1 = EnderecoEntity.builder()
                 .enderecoId(null)
                 .cep("54589-525")
                 .estado("PE")
@@ -53,20 +53,20 @@ public class AmbienteTestesConfig {
                 .build();
 
         var pessoaTest2 = PessoaEntity.builder()
-                .id(null)
+                .pessoaId(null)
                 .nome("Carol")
                 .sobrenome("Dweck")
                 .cpf("256.327.270-09")
                 .build();
 
-        var contatoTest2 = Contato.builder()
+        var contatoTest2 = ContatoEntity.builder()
                 .contatoId(null)
                 .celular("(65)99966-6655")
                 .email("dweck@gmail.com")
                 .pessoa(pessoaTest2)
                 .build();
 
-        var entedercoTest2 = Endereco.builder()
+        var entedercoTest2 = EnderecoEntity.builder()
                 .enderecoId(null)
                 .cep("78020-400")
                 .estado("MT")

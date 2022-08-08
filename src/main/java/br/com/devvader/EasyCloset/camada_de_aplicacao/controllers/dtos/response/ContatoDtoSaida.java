@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public final class ContatoDtoSaida
 {
+    private Long contatoId;
     private String celular;
     private String email;
 }

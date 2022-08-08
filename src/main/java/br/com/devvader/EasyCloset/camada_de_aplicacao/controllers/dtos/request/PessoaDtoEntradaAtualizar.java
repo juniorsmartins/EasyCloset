@@ -20,7 +20,7 @@ public final class PessoaDtoEntradaAtualizar {
 
     @NotNull(message = "{campo.id.obrigatorio}")
     @Positive(message = "{campo.id.positivo}")
-    private Long id;
+    private Long pessoaId;
 
     @NotNull(message = "{campo.nome.obrigatorio}")
     @NotEmpty(message = "{campo.nome.obrigatorio}")

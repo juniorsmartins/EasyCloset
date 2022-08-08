@@ -23,7 +23,7 @@ public final class CompraEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private Long id;
+    private Long compraId;
 
     @Column(name = "tipo_pgto")
     @Enumerated(EnumType.STRING)
@@ -40,5 +40,5 @@ public final class CompraEntity implements Serializable {
     private LocalDate dataCompra;
 
     @OneToOne
-    private RoupaEntity roupa;
+    private RoupaEntity roupaId;
 }

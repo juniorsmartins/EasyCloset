@@ -35,9 +35,9 @@ public final class RoupaDtoEntrada {
 
     @NotNull
     @Valid
-    private CompraDtoEntrada compra;
+    private CompraDtoEntrada compraId;
 
     @NotNull
     @Positive
-    private Long pessoa;
+    private Long pessoaId;
 }

@@ -19,5 +19,5 @@ public final class CompraDtoSaida {
     private FormaPgtoEnum formaPgto;
     private BigDecimal preco;
     private LocalDate dataCompra;
-    private Long roupa;
+    private Long roupaId;
 }

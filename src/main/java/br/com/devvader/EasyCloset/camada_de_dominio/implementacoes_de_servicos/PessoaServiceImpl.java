@@ -10,7 +10,7 @@ import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tr
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RequisicaoInvalidaException;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.pessoa.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,15 +49,14 @@ public final class PessoaServiceImpl implements IPessoaService {
         final var pessoaDtoDeSaida = Optional.of(pessoaDtoEntrada)
                 .map(pessoaDeEntrada -> modelMapper.map(pessoaDeEntrada, PessoaEntity.class))
                 .map(pessoaEntity -> {
-                            var pessoaSalva = iPessoaRepository.save(pessoaEntity);
-                            pessoaSalva.getContato().setPessoa(pessoaSalva);
-                            pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-                            return iPessoaRepository.saveAndFlush(pessoaSalva);
+                            pessoaEntity.getContato().setPessoa(pessoaEntity);
+                            pessoaEntity.getEndereco().setPessoa(pessoaEntity);
+                            return iPessoaRepository.saveAndFlush(pessoaEntity);
                         })
                 .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
                 .orElseThrow(() -> new RequisicaoInvalidaException(MensagensPadronizadas.REQUISICAO_INVALIDA));
 
-        return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getId())).body(pessoaDtoDeSaida);
+        return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getPessoaId())).body(pessoaDtoDeSaida);
     }
 
     // ----- Listar
@@ -68,7 +67,7 @@ public final class PessoaServiceImpl implements IPessoaService {
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = iPessoaRepository.findAll(exampleFiltro);
 
-        if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getId() != null
+        if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getPessoaId() != null
                 || filtrosParaPesquisa.getCpf() != null)) {
             return ResponseEntity.ok().body(modelMapper.map(listaDePessoasSalvas.get(0), PessoaDtoSaidaDetalhada.class));
         }
@@ -78,7 +77,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                         .map(pessoa -> modelMapper.map(pessoa, PessoaDtoSaida.class))
                         .collect(Collectors.toList())
                         .stream()
-                        .sorted(Comparator.comparing(PessoaDtoSaida::getId).reversed()));
+                        .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()));
     }
 
         private void criarExampleConfiguradoPorExampleMatcher() {
@@ -111,7 +110,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                     listaDePessoasDeSaida = iPessoaRepository.findAll()
                             .stream()
                             .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
-                            .sorted(Comparator.comparing(PessoaDtoSaida::getId).reversed())
+                            .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed())
                             .toList();
                     return ResponseEntity.ok().body(listaDePessoasDeSaida);
                 }).orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO));
@@ -123,7 +122,7 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         // criar pattern de regras de negócio
 
-        return iPessoaRepository.findById(pessoaDtoEntradaAtualizar.getId())
+        return iPessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
                 .map(pessoaEntity -> {
                     var pessoaComDadosNovos = modelMapper.map(pessoaDtoEntradaAtualizar, PessoaEntity.class);
                     pessoaComDadosNovos.getContato().setPessoa(pessoaEntity);
