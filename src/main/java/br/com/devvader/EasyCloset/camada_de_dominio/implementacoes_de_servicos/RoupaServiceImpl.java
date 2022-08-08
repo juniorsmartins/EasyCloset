@@ -16,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -57,18 +59,26 @@ public final class RoupaServiceImpl implements IRoupaService {
     // ----- Consultar
     @Override
     public ResponseEntity<?> consultar(Long id) {
-
-        final var roupaDeSaida = iRoupaRepository.findById(id)
-                .map(roupaEntity -> modelMapper.map(roupaEntity, RoupaDtoSaida.class))
-                .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO));
-
-        return ResponseEntity.ok().body(roupaDeSaida);
+        return ResponseEntity
+                .ok()
+                .body(iRoupaRepository.findById(id)
+                        .map(roupaEntity -> modelMapper.map(roupaEntity, RoupaDtoSaida.class))
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO)));
     }
 
     // ----- Deletar
     @Override
     public ResponseEntity<?> deletar(Long id) {
-        return null;
+        return ResponseEntity
+                .ok()
+                .body(iRoupaRepository.findById(id)
+                        .map(roupaEntity -> {
+                            iRoupaRepository.delete(roupaEntity);
+                            return iRoupaRepository.findAll().stream()
+                                    .map(roupa -> modelMapper.map(roupa, RoupaDtoSaida.class))
+                                    .sorted(Comparator.comparing(RoupaDtoSaida::getRoupaId).reversed())
+                                    .collect(Collectors.toList());
+                        }).orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO)));
     }
 
     // ----- Atualizar

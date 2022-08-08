@@ -93,8 +93,9 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Consultar
     @Override
     public ResponseEntity<?> consultar(Long codigo) {
-        return ResponseEntity.ok().body(
-                iPessoaRepository.findById(codigo)
+        return ResponseEntity
+                .ok()
+                .body(iPessoaRepository.findById(codigo)
                         .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
                         .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
         );
@@ -103,7 +104,6 @@ public final class PessoaServiceImpl implements IPessoaService {
     // ----- Deletar
     @Override
     public ResponseEntity<?> deletar(Long id) {
-
         return iPessoaRepository.findById(id)
                 .map(pessoa -> {
                     iPessoaRepository.delete(pessoa);
