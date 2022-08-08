@@ -57,7 +57,12 @@ public final class RoupaServiceImpl implements IRoupaService {
     // ----- Consultar
     @Override
     public ResponseEntity<?> consultar(Long id) {
-        return null;
+
+        final var roupaDeSaida = iRoupaRepository.findById(id)
+                .map(roupaEntity -> modelMapper.map(roupaEntity, RoupaDtoSaida.class))
+                .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO));
+
+        return ResponseEntity.ok().body(roupaDeSaida);
     }
 
     // ----- Deletar
