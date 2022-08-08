@@ -108,7 +108,7 @@ class PessoaEntityServiceImplTest {
         Assertions.assertEquals(LOGRADOURO1, ((PessoaDtoSaida) response.getBody()).getEndereco().getLogradouro());
         Assertions.assertEquals(NUMERO1, ((PessoaDtoSaida) response.getBody()).getEndereco().getNumero());
         Assertions.assertEquals(COMPLEMENTO1, ((PessoaDtoSaida) response.getBody()).getEndereco().getComplemento());
-        Assertions.assertEquals(PESSOA1_ID, ((PessoaDtoSaida) response.getBody()).getPessoaId());
+        Assertions.assertEquals(PESSOA1_ID, ((PessoaDtoSaida) response.getBody()).getId());
     }
 
     @Test
@@ -123,7 +123,7 @@ class PessoaEntityServiceImplTest {
         Assertions.assertEquals(ResponseEntity.class, listaDePessoasDeSaida.getClass());
         Assertions.assertEquals(2, ((List<PessoaDtoSaida>) listaDePessoasDeSaida.getBody()).size());
         Assertions.assertEquals(PessoaDtoSaida.class, ((List<PessoaDtoSaida>) listaDePessoasDeSaida.getBody()).get(0).getClass());
-        Assertions.assertEquals(PESSOA_ID, ((List<PessoaDtoSaida>) listaDePessoasDeSaida.getBody()).get(0).getPessoaId());
+        Assertions.assertEquals(PESSOA_ID, ((List<PessoaDtoSaida>) listaDePessoasDeSaida.getBody()).get(0).getId());
     }
 
     @Test
@@ -134,7 +134,7 @@ class PessoaEntityServiceImplTest {
         Assertions.assertNotNull(pessoaDeSaida);
         Assertions.assertEquals(PessoaDtoSaida.class, pessoaDeSaida.getBody().getClass());
 
-        Assertions.assertEquals(PESSOA1_ID, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getPessoaId());
+        Assertions.assertEquals(PESSOA1_ID, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getId());
         Assertions.assertEquals(NOME1, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getNome());
         Assertions.assertEquals(SOBRENOME1, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getSobrenome());
         Assertions.assertEquals(CPF1, ((PessoaDtoSaida) pessoaDeSaida.getBody()).getCpf());
@@ -177,7 +177,7 @@ class PessoaEntityServiceImplTest {
 
     private void startPessoas() {
         pessoaDeEntrada = PessoaDtoEntrada.builder()
-                .pessoaId(null)
+                .id(null)
                 .nome(NOME1)
                 .sobrenome(SOBRENOME1)
                 .cpf(CPF1)
@@ -197,7 +197,7 @@ class PessoaEntityServiceImplTest {
                 .build();
 
         pessoaDtoEntradaListar = PessoaDtoEntradaListar.builder()
-                .pessoaId(null)
+                .id(null)
                 .nome(null)
                 .sobrenome(null)
                 .cpf(null)
@@ -272,7 +272,7 @@ class PessoaEntityServiceImplTest {
                 .build();
 
         pessoaDeSaida = PessoaDtoSaida.builder()
-                .pessoaId(PESSOA1_ID)
+                .id(PESSOA1_ID)
                 .nome(NOME1)
                 .sobrenome(SOBRENOME1)
                 .cpf(CPF1)
@@ -292,7 +292,7 @@ class PessoaEntityServiceImplTest {
                 .build();
 
         pessoaDeSaida2 = PessoaDtoSaida.builder()
-                .pessoaId(PESSOA_ID)
+                .id(PESSOA_ID)
                 .nome(NOME)
                 .sobrenome(SOBRENOME)
                 .cpf(CPF)

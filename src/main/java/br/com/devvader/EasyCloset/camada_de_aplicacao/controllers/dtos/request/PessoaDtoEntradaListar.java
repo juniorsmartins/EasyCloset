@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public final class PessoaDtoEntradaListar {
 
-    private String pessoaId;
+    private String id;
     private String nome;
     private String sobrenome;
     private String cpf;

@@ -4,13 +4,15 @@ import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.P
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaAtualizar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.PessoaDtoEntradaListar;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaida;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.mappers.MapStructPessoa;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.PessoaDtoSaidaDetalhada;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.regras_negocio.pessoa.IPessoaRegrasDeNegocio;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RequisicaoInvalidaException;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IPessoaService;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.PessoaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IPessoaRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -21,17 +23,18 @@ import java.net.URI;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public final class PessoaServiceImpl implements IPessoaService {
 
     @Autowired
     private IPessoaRepository iPessoaRepository;
-
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private List<IPessoaRegrasDeNegocio> listaDeRegrasDeNegocio;
 
-    private PessoaEntity pessoaPraAtualizar;
     private List<PessoaEntity> listaDePessoasSalvas;
     private List<PessoaDtoSaida> listaDePessoasDeSaida;
     private PessoaDtoEntradaListar filtrosParaPesquisa;
@@ -44,19 +47,18 @@ public final class PessoaServiceImpl implements IPessoaService {
         listaDeRegrasDeNegocio.forEach(regra -> regra.validar(pessoaDtoEntrada));
 
         final var pessoaDtoDeSaida = Optional.of(pessoaDtoEntrada)
-                .map(MapStructPessoa.INSTANCE::converterPessoaDtoEntradaParaPessoa)
-                .map(pes -> cadastrarPessoa(pes))
-                .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
-                .orElseThrow();
-        return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getPessoaId())).body(pessoaDtoDeSaida);
-    }
+                .map(pessoaDeEntrada -> modelMapper.map(pessoaDeEntrada, PessoaEntity.class))
+                .map(pessoaEntity -> {
+                            var pessoaSalva = iPessoaRepository.save(pessoaEntity);
+                            pessoaSalva.getContato().setPessoa(pessoaSalva);
+                            pessoaSalva.getEndereco().setPessoa(pessoaSalva);
+                            return iPessoaRepository.saveAndFlush(pessoaSalva);
+                        })
+                .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
+                .orElseThrow(() -> new RequisicaoInvalidaException(MensagensPadronizadas.REQUISICAO_INVALIDA));
 
-        private PessoaEntity cadastrarPessoa(PessoaEntity pessoa) {
-            var pessoaSalva = iPessoaRepository.save(pessoa);
-            pessoaSalva.getContato().setPessoa(pessoaSalva);
-            pessoaSalva.getEndereco().setPessoa(pessoaSalva);
-            return iPessoaRepository.save(pessoaSalva);
-        }
+        return ResponseEntity.created(URI.create("/" + pessoaDtoDeSaida.getId())).body(pessoaDtoDeSaida);
+    }
 
     // ----- Listar
     @Override
@@ -66,16 +68,17 @@ public final class PessoaServiceImpl implements IPessoaService {
         criarExampleConfiguradoPorExampleMatcher();
         listaDePessoasSalvas = iPessoaRepository.findAll(exampleFiltro);
 
-        if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getPessoaId() != null
+        if(!listaDePessoasSalvas.isEmpty() && (filtrosParaPesquisa.getId() != null
                 || filtrosParaPesquisa.getCpf() != null)) {
-            return ResponseEntity.ok().body(MapStructPessoa.INSTANCE
-                    .converterPessoaParaPessoaDtoSaidaDetalhada(listaDePessoasSalvas.get(0)));
+            return ResponseEntity.ok().body(modelMapper.map(listaDePessoasSalvas.get(0), PessoaDtoSaidaDetalhada.class));
         }
 
-        return ResponseEntity.ok().body(MapStructPessoa.INSTANCE
-                        .converterListaDePessoasParaListaDePessoasDtoSaida(listaDePessoasSalvas)
+        return ResponseEntity.ok().body(listaDePessoasSalvas
                         .stream()
-                        .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()));
+                        .map(pessoa -> modelMapper.map(pessoa, PessoaDtoSaida.class))
+                        .collect(Collectors.toList())
+                        .stream()
+                        .sorted(Comparator.comparing(PessoaDtoSaida::getId).reversed()));
     }
 
         private void criarExampleConfiguradoPorExampleMatcher() {
@@ -85,8 +88,7 @@ public final class PessoaServiceImpl implements IPessoaService {
                     .withIgnoreNullValues()
                     .withStringMatcher(ExampleMatcher
                             .StringMatcher.EXACT);
-            exampleFiltro = Example.of(MapStructPessoa.INSTANCE
-                    .converterPessoaDtoEntradaListarParaPessoa(filtrosParaPesquisa), matcher);
+            exampleFiltro = Example.of(modelMapper.map(filtrosParaPesquisa, PessoaEntity.class), matcher);
         }
 
     // ----- Consultar
@@ -94,9 +96,8 @@ public final class PessoaServiceImpl implements IPessoaService {
     public ResponseEntity<?> consultar(Long codigo) {
         return ResponseEntity.ok().body(
                 iPessoaRepository.findById(codigo)
-                        .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
-                        .orElseThrow(() -> new RecursoNaoEncontradoException(
-                                MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
+                        .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
+                        .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO))
         );
     }
 
@@ -109,8 +110,9 @@ public final class PessoaServiceImpl implements IPessoaService {
                     iPessoaRepository.delete(pessoa);
                     listaDePessoasDeSaida = iPessoaRepository.findAll()
                             .stream()
-                            .map(MapStructPessoa.INSTANCE::converterPessoaParaPessoaDtoSaida)
-                            .sorted(Comparator.comparing(PessoaDtoSaida::getPessoaId).reversed()).toList();
+                            .map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDtoSaida.class))
+                            .sorted(Comparator.comparing(PessoaDtoSaida::getId).reversed())
+                            .toList();
                     return ResponseEntity.ok().body(listaDePessoasDeSaida);
                 }).orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO));
     }
@@ -121,15 +123,13 @@ public final class PessoaServiceImpl implements IPessoaService {
 
         // criar pattern de regras de negócio
 
-        return iPessoaRepository.findById(pessoaDtoEntradaAtualizar.getPessoaId())
-                .map(pessoa -> {
-                    pessoaPraAtualizar = MapStructPessoa.INSTANCE
-                            .converterPessoaDtoEntradaAtualizarParaPessoa(pessoaDtoEntradaAtualizar);
-                    pessoaPraAtualizar.getContato().setPessoa(pessoa);
-                    pessoaPraAtualizar.getEndereco().setPessoa(pessoa);
-                    pessoaPraAtualizar.setDataDeCriacao(pessoa.getDataDeCriacao());
-                    var pessoaDeSaida = MapStructPessoa.INSTANCE
-                            .converterPessoaParaPessoaDtoSaida(iPessoaRepository.save(pessoaPraAtualizar));
+        return iPessoaRepository.findById(pessoaDtoEntradaAtualizar.getId())
+                .map(pessoaEntity -> {
+                    var pessoaComDadosNovos = modelMapper.map(pessoaDtoEntradaAtualizar, PessoaEntity.class);
+                    pessoaComDadosNovos.getContato().setPessoa(pessoaEntity);
+                    pessoaComDadosNovos.getEndereco().setPessoa(pessoaEntity);
+                    pessoaComDadosNovos.setDataDeCriacao(pessoaEntity.getDataDeCriacao());
+                    var pessoaDeSaida = modelMapper.map(iPessoaRepository.save(pessoaComDadosNovos), PessoaDtoSaida.class);
                     return ResponseEntity.ok().body(pessoaDeSaida);
                 }).orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.RECURSO_NAO_ENCONTRADO));
     }

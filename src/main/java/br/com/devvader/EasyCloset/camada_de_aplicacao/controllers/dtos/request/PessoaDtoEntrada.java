@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public final class PessoaDtoEntrada {
 
-    private Long pessoaId;
+    private Long id;
 
     @NotNull(message = "{campo.nome.obrigatorio}")
     @NotEmpty(message = "{campo.nome.obrigatorio}")

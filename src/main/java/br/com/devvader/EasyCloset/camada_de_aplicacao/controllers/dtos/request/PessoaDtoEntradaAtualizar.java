@@ -1,9 +1,9 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,16 +11,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public final class PessoaDtoEntradaAtualizar {
 
     @NotNull(message = "{campo.id.obrigatorio}")
     @Positive(message = "{campo.id.positivo}")
-    private Long pessoaId;
+    private Long id;
 
     @NotNull(message = "{campo.nome.obrigatorio}")
     @NotEmpty(message = "{campo.nome.obrigatorio}")

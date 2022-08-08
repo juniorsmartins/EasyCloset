@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public final class PessoaDtoSaida
 {
-    private Long pessoaId;
+    private Long id;
     private String nome;
     private String sobrenome;
     private String cpf;

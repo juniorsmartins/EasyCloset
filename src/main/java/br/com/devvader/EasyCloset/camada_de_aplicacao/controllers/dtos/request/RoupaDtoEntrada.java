@@ -1,46 +1,43 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.CompraEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.CoresEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TamanhoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TecidoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPecaEnum;
 import lombok.*;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public final class RoupaDtoEntrada {
 
     @NotNull
-    @NotEmpty
-    @PositiveOrZero
+    @Enumerated(EnumType.STRING)
     private TipoPecaEnum tipoPeca;
 
     @NotNull
-    @NotEmpty
-    @PositiveOrZero
+    @Enumerated(EnumType.STRING)
     private TecidoEnum tecido;
 
     @NotNull
-    @NotEmpty
-    @PositiveOrZero
+    @Enumerated(EnumType.STRING)
     private CoresEnum corPrincipal;
 
     @NotNull
-    @NotEmpty
-    @PositiveOrZero
+    @Enumerated(EnumType.STRING)
     private TamanhoEnum tamanho;
 
-    // parei aqui - Falta construir CompraDtoEntrada e CompraDtoSaida e MapStruct deles.
-    @NotBlank
-    private CompraEntity compra;
+    @NotNull
+    @Valid
+    private CompraDtoEntrada compra;
 
     @NotNull
-    @NotEmpty
     @Positive
-    private Long pessoaId;
+    private Long pessoa;
 }

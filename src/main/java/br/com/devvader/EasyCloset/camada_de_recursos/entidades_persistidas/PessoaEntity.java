@@ -10,7 +10,8 @@ import java.util.List;
 @Entity
 @Table(name = "PESSOAS")
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public final class PessoaEntity extends AbstractAuditingEntity implements Serializable {
@@ -37,6 +38,6 @@ public final class PessoaEntity extends AbstractAuditingEntity implements Serial
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<RoupaEntity> roupas;
 }

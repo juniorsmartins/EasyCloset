@@ -1,13 +1,16 @@
 package br.com.devvader.EasyCloset.camada_de_dominio.implementacoes_de_servicos;
 
 import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request.RoupaDtoEntrada;
+import br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response.RoupaDtoSaida;
 import br.com.devvader.EasyCloset.camada_de_aplicacao.portas_de_controladores.ICompraRepository;
-import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.mappers.MapStructRoupa;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RequisicaoInvalidaException;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IRoupaService;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.RoupaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IRoupaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +18,11 @@ import java.net.URI;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public final class RoupaServiceImpl implements IRoupaService {
 
-    @Autowired
+    ModelMapper modelMapper;
     IRoupaRepository iRoupaRepository;
-    @Autowired
     ICompraRepository iCompraRepository;
 
     // ----- Cadastrar
@@ -27,9 +30,13 @@ public final class RoupaServiceImpl implements IRoupaService {
     public ResponseEntity<?> cadastrar(RoupaDtoEntrada roupaDtoEntrada) {
 
         final var roupaDeSaida = Optional.of(roupaDtoEntrada)
-                .map(MapStructRoupa.INSTANCE::converterRoupaDtoEntradaParaRoupaEntity)
-                .map(roupa -> iRoupaRepository.saveAndFlush(roupa))
-                .map(MapStructRoupa.INSTANCE::converterRoupaEntityParaRoupaDtoSaida)
+                .map(roupaDeEntrada -> modelMapper.map(roupaDeEntrada, RoupaEntity.class))
+                .map(roupaNova -> {
+                    var roupaSalva = iRoupaRepository.save(roupaNova);
+                    roupaSalva.getCompra().setRoupa(roupaSalva);
+                    return iRoupaRepository.saveAndFlush(roupaSalva);
+                })
+                .map(roupa -> modelMapper.map(roupa, RoupaDtoSaida.class))
                 .orElseThrow(() -> new RequisicaoInvalidaException(MensagensPadronizadas.REQUISICAO_INVALIDA));
 
         return ResponseEntity.created(URI.create("/" + roupaDeSaida.getId())).body(roupaDeSaida);

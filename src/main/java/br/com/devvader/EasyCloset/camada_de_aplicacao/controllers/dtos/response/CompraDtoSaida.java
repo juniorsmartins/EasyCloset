@@ -1,33 +1,23 @@
-package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
+package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response;
 
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.RoupaEntity;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.FormaPgtoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPgtoEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public final class CompraDtoEntrada {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public final class CompraDtoSaida {
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private TipoPgtoEnum tipoPgto;
-
-    @NotNull
-    @Enumerated(EnumType.STRING)
     private FormaPgtoEnum formaPgto;
-
-    @NotNull
-    @Positive
     private BigDecimal preco;
-
-    @NotNull
     private LocalDate dataCompra;
+    private Long roupa;
 }
