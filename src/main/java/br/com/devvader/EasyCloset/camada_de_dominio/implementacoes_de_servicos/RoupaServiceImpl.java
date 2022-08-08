@@ -53,7 +53,13 @@ public final class RoupaServiceImpl implements IRoupaService {
     // ----- Listar
     @Override
     public ResponseEntity<?> listar(RoupaDtoEntrada roupaDtoEntrada) {
-        return null;
+        return ResponseEntity
+                .ok()
+                .body(iRoupaRepository.findAll()
+                        .stream()
+                        .map(roupaDoDatabase -> modelMapper.map(roupaDoDatabase, RoupaDtoSaida.class))
+                        .sorted(Comparator.comparing(RoupaDtoSaida::getRoupaId).reversed())
+                        .collect(Collectors.toList()));
     }
 
     // ----- Consultar
