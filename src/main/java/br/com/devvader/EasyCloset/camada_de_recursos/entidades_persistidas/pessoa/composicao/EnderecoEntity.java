@@ -45,6 +45,6 @@ public final class EnderecoEntity extends AbstractAuditingEntity implements Seri
     private String complemento;
 
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
+    @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)
     private PessoaEntity pessoa;
 }

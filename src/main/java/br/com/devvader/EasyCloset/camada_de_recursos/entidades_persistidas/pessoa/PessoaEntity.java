@@ -41,6 +41,6 @@ public final class PessoaEntity extends AbstractAuditingEntity implements Serial
     @OneToOne(mappedBy = "pessoa", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
     private EnderecoEntity endereco;
 
-    @OneToMany(mappedBy = "pessoaId", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "pessoa", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<RoupaEntity> roupas;
 }

@@ -5,6 +5,8 @@ import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TecidoEnum;
 import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPecaEnum;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.Valid;
@@ -35,7 +37,7 @@ public final class RoupaDtoEntrada {
 
     @NotNull
     @Valid
-    private CompraDtoEntrada compraId;
+    private CompraDtoEntrada compra;
 
     @NotNull
     @Positive

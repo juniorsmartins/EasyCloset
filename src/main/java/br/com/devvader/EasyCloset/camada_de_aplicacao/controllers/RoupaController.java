@@ -32,19 +32,19 @@ public class RoupaController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<?> consultar(@PathVariable(name = "id") Long id) {
-        return iRoupaService.consultar(id);
+    ResponseEntity<?> consultar(@PathVariable(name = "id") Long codigo) {
+        return iRoupaService.consultar(codigo);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    ResponseEntity<?> deletar(@PathVariable(name = "id") Long id) {
+    ResponseEntity<?> deletar(@PathVariable Long id) {
         return iRoupaService.deletar(id);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    ResponseEntity<?> atualizar(@PathVariable(name = "id") Long id, @RequestBody @Valid RoupaDtoEntrada roupaDtoEntrada) {
+    ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody @Valid RoupaDtoEntrada roupaDtoEntrada) {
         return iRoupaService.atualizar(id, roupaDtoEntrada);
     }
 }

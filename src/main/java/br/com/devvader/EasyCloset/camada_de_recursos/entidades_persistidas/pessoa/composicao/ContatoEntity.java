@@ -30,6 +30,6 @@ public final class ContatoEntity extends AbstractAuditingEntity implements Seria
     private String email;
 
     @OneToOne
-    @JoinColumn(name = "pessoa_id")
+    @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)
     private PessoaEntity pessoa;
 }

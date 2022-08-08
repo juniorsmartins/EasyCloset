@@ -1,8 +1,7 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.response;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.RoupaEntity;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.FormaPgtoEnum;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.FormaPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.TipoPgtoEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import java.math.BigDecimal;

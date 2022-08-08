@@ -1,8 +1,10 @@
 package br.com.devvader.EasyCloset.camada_de_aplicacao.controllers.dtos.request;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.FormaPgtoEnum;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.FormaPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.TipoPgtoEnum;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;

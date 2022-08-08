@@ -1,7 +1,8 @@
-package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa;
+package br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao;
 
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.FormaPgtoEnum;
-import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.enuns.TipoPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.RoupaEntity;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.FormaPgtoEnum;
+import br.com.devvader.EasyCloset.camada_de_recursos.entidades_persistidas.roupa.composicao.enuns.TipoPgtoEnum;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,11 +26,11 @@ public final class CompraEntity implements Serializable {
     @Column(name = "id", nullable = false, updatable = false)
     private Long compraId;
 
-    @Column(name = "tipo_pgto")
+    @Column(name = "tipo_pgto", length = 50)
     @Enumerated(EnumType.STRING)
     private TipoPgtoEnum tipoPgto;
 
-    @Column(name = "forma_pgto")
+    @Column(name = "forma_pgto", length = 50)
     @Enumerated(EnumType.STRING)
     private FormaPgtoEnum formaPgto;
 
@@ -40,5 +41,6 @@ public final class CompraEntity implements Serializable {
     private LocalDate dataCompra;
 
     @OneToOne
-    private RoupaEntity roupaId;
+    @JoinColumn(name = "roupa_id", nullable = false, updatable = false)
+    private RoupaEntity roupa;
 }

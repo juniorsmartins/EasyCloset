@@ -31,19 +31,18 @@ public final class RoupaServiceImpl implements IRoupaService {
     @Override
     public ResponseEntity<?> cadastrar(RoupaDtoEntrada roupaDtoEntrada) {
 
-        var pessoaEntity = iPessoaRepository.findById(roupaDtoEntrada.getPessoaId());
-        if(pessoaEntity.isEmpty())
-            throw new RecursoNaoEncontradoException(MensagensPadronizadas.PESSOA_NAO_ENCONTRADA);
+        var pessoaEntity = iPessoaRepository
+                .findById(roupaDtoEntrada.getPessoaId())
+                .orElseThrow(() -> new RecursoNaoEncontradoException(MensagensPadronizadas.PESSOA_NAO_ENCONTRADA));
 
         final var roupaDeSaida = Optional.of(roupaDtoEntrada)
                 .map(roupaDeEntrada -> modelMapper.map(roupaDeEntrada, RoupaEntity.class))
-                .map(roupaNova -> {
-                    roupaNova.setPessoaId(pessoaEntity.get());
-                    var roupaSalva = iRoupaRepository.save(roupaNova);
-                    roupaSalva.getCompraId().setRoupaId(roupaSalva);
-                    return iRoupaRepository.saveAndFlush(roupaSalva);
+                .map(roupaEntityNova -> {
+                    roupaEntityNova.setPessoa(pessoaEntity);
+                    roupaEntityNova.getCompra().setRoupa(roupaEntityNova);
+                    return iRoupaRepository.saveAndFlush(roupaEntityNova);
                 })
-                .map(roupa -> modelMapper.map(roupa, RoupaDtoSaida.class))
+                .map(roupaEntitySalva -> modelMapper.map(roupaEntitySalva, RoupaDtoSaida.class))
                 .orElseThrow(() -> new RequisicaoInvalidaException(MensagensPadronizadas.REQUISICAO_INVALIDA));
 
         return ResponseEntity.created(URI.create("/" + roupaDeSaida.getRoupaId())).body(roupaDeSaida);
