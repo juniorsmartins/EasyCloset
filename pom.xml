@@ -84,6 +84,14 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Dependências de Jasper Reports -->
+
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.20.0</version>
+		</dependency>
+
 		<!-- Dependências de Testes Automatizados -->
 
 		<dependency>

@@ -23,7 +23,7 @@ public final class PessoaEntity extends AbstractAuditingEntity implements Serial
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "pessoa_id", nullable = false, updatable = false)
     private Long pessoaId;
 
     @Column(name = "nome", length = 25, nullable = false)

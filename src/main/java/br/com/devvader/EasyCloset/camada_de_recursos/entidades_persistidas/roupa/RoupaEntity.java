@@ -24,7 +24,7 @@ public final class RoupaEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "roupa_id", nullable = false, updatable = false)
     private Long roupaId;
 
     @Column(name = "tipo_peca", length = 50)
@@ -47,6 +47,6 @@ public final class RoupaEntity implements Serializable {
     private CompraEntity compra;
 
     @ManyToOne
-    @JoinColumn(name = "pessoa_id", nullable = false, updatable = false)
+    @JoinColumn(name = "id_pessoa", nullable = false, updatable = false)
     private PessoaEntity pessoa;
 }
