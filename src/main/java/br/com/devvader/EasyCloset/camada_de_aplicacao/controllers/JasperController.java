@@ -10,7 +10,7 @@ import java.sql.Connection;
 
 @RestController
 @RequestMapping("/v1/relatorios")
-public class RelatorioController {
+public class JasperController {
 
     @Autowired
     private Connection connection;

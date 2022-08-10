@@ -4,9 +4,10 @@ public final class MensagensPadronizadas {
 
     public static final String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado no banco de dados.";
     public static final String PESSOA_NAO_ENCONTRADA = "Pessoa não encontrada no banco de dados.";
-    public static final String ARQUIVO_NAO_ENCONTRADO = "Arquivo não encontrado no banco de dados.";
+    public static final String ARQUIVO_NAO_ENCONTRADO_NO_DATABASE = "Arquivo não encontrado no banco de dados.";
+    public static final String ARQUIVO_NAO_ENCONTRADO = "Arquivo não encontrado!";
 
-    public static final String DATABASE_SEM_CONEXAO = "Banco de dados sem conexão.";
+    public static final String DATABASE_SEM_CONEXAO = "Sem conexão com banco de dados.";
 
     public static final String CPF_JA_CADASTRADO = "CPF - recurso único já cadastrado no banco de dados!";
     public static final String EXCECAO_NULL_POINTER = "Valores nulos são inválidos!";

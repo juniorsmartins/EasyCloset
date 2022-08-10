@@ -3,22 +3,33 @@ package br.com.devvader.EasyCloset.camada_de_dominio.implementacoes_de_servicos;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.MensagensPadronizadas;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RecursoNaoEncontradoException;
 import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RegraDeNegocioException;
+import br.com.devvader.EasyCloset.camada_de_dominio.entidades_nao_persistidas.tratamento_excecoes.RequisicaoInvalidaException;
 import br.com.devvader.EasyCloset.camada_de_dominio.portas_de_servicos.IJasperService;
-import br.com.devvader.EasyCloset.camada_de_recursos.repositories.IRoupaRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.InputStream;
+import org.springframework.util.ResourceUtils;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Service
-@AllArgsConstructor
 @Slf4j
 public final class JasperServiceImpl implements IJasperService {
 
-    private IRoupaRepository iRoupaRepository;
+    private static final String JASPER_DIRETORIO = "classpath:jasper/";
+    private static final String JASPER_PREFIXO = "roupas-";
+    private static final String JASPER_SUFIXO = ".jasper";
+
+    @Autowired
+    private Connection conexaoComDatabase;
+
+    private Map<String, Object> mapaDeParametros = new LinkedHashMap<>();
 
     @Override
     public void adicionarParametrosNoMapa(String key, Object value) {
@@ -26,26 +37,20 @@ public final class JasperServiceImpl implements IJasperService {
     }
 
     @Override
-    public void abrirJasperViewer(String jrxml) {
-        JasperReport relatorioCompilado = compilarArquivoJrxml(jrxml);
+    public byte[] exportarPDF(String code) {
+        byte[] bytes = null;
         try {
-            JasperPrint relatorioImpresso = JasperFillManager.fillReport(relatorioCompilado, mapaDeParametros, (Connection) iRoupaRepository);
-            JasperViewer visualizadorDeRelatorio = new JasperViewer(relatorioImpresso);
-            visualizadorDeRelatorio.setVisible(true);
+            File arquivo = ResourceUtils.getFile(JASPER_DIRETORIO.concat(JASPER_PREFIXO).concat(JASPER_SUFIXO)); // busca o arquivo pelo classpath
+            JasperPrint imprimir = JasperFillManager.fillReport(arquivo.getAbsolutePath(), mapaDeParametros,
+                    conexaoComDatabase);
+            bytes = JasperExportManager.exportReportToPdf(imprimir);
+        } catch (FileNotFoundException fnfe) {
+            log.error(fnfe.getMessage(), fnfe.getCause(), fnfe.getStackTrace());
+            throw new RequisicaoInvalidaException(MensagensPadronizadas.ARQUIVO_NAO_ENCONTRADO);
         } catch (JRException jre) {
             log.error(jre.getMessage(), jre.getCause(), jre.getStackTrace());
-            throw new RegraDeNegocioException(MensagensPadronizadas.REQUISICAO_INVALIDA);
+            throw new RequisicaoInvalidaException(MensagensPadronizadas.REQUISICAO_INVALIDA);
         }
-    }
-
-    @Override
-    public JasperReport compilarArquivoJrxml(String arquivo) {
-        try{
-            InputStream novoArquivoJrxml = getClass().getClassLoader().getResourceAsStream(arquivo);
-            return JasperCompileManager.compileReport(novoArquivoJrxml);
-        }catch(JRException jre) {
-            log.error(jre.getMessage(), jre.getCause(), jre.getStackTrace());
-            throw new RecursoNaoEncontradoException(MensagensPadronizadas.ARQUIVO_NAO_ENCONTRADO);
-        }
+        return bytes;
     }
 }
